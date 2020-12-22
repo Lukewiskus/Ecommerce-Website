@@ -1,0 +1,30 @@
+.header {
+  height: 8.5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+  .wrap {
+    height: 100%;
+    max-width: 145rem;
+    margin: 0 auto;
+
+    .logo {
+      cursor: pointer;
+      width: 13rem;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      -webkit-transfrom: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      transform: translateY(-50%);
+      display: block;
+      width: 100%;
+      outline: 5px black;
+
+      //   .img{
+      //       display: block;
+      //       width: 100%;
+      //       margin: 0;
+      //   }
+    }
+  }
+}
