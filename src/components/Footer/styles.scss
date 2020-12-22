@@ -1,0 +1,19 @@
+.footer {
+  .wrap {
+      .item{
+        cursor: pointer;
+        width: 13rem;
+        position: absolute;
+        bottom: 1rem;
+        left: 1.5rem;
+        -webkit-transfrom: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        transform: translateY(-50%);
+        display: block;
+        width: 100%;
+        outline: 5px black;
+        font-size:0.5rem;
+      }
+
+    }
+}

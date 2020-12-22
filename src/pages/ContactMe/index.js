@@ -2,16 +2,16 @@ import React, { Component} from 'react';
 
 // import './styles.scss'
 
-class HomePage extends Component {
+class ContactMe extends Component {
 
     render() {
         return (
             <div>
-                <h1>Home Page</h1>
+                <h1>ContactMe Page</h1>
             </div>
 
         )
     }
 }
 
-export default HomePage;
+export default ContactMe;

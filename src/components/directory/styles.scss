@@ -8,8 +8,8 @@
   .wrap {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5rem;
-    row-gap: 5rem;
+    column-gap: 10rem;
+    row-gap: 10rem;
     .items {
       cursor: pointer;
       position: relative;
