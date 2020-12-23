@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/Header';
+import Header from '../components/header';
 import Footer from './../components/Footer';
 import './mainstyles.scss'
 
@@ -11,9 +11,9 @@ const MainLayout = props => {
             <div className="main">
                 {props.children}
             </div>
-            <div className="footer">
+            {/* <div className="footer">
                 <Footer />
-            </div>
+            </div> */}
         </div>
     );
 };
