@@ -3,7 +3,7 @@ import './styles.scss';
 import Button from "./../forms/Button";
 import FormInput from "./../forms/FormInput";
 import { signInWithGoogle, auth, handleUserProfile } from '../../firebase/utils';
-
+import AuthWrapper from './../AuthWrapper';
 
 const initialState = {
     displayName: '',
@@ -35,7 +35,7 @@ class SignUp extends Component {
         const {displayName, email, password, confirmPassword} = this.state;
 
         if (password !== confirmPassword) {
-            const err = ['Passwords do not match'];
+            const err = ['PASSWORDS DO NOT MATCH'];
             this.setState({
                 errors: err
             })
@@ -59,71 +59,65 @@ class SignUp extends Component {
     }
     render() {
         const { displayName, email, password, confirmPassword, errors } = this.state;
-    return(
-        <div className="signup">
-            <div className='wrap'>
-                <h2>Don't Have an acount? Create one!</h2>
-
-                {errors.length > 0 && (
-                    <ul>
-                        {errors.map((err,index) => {
-                            return (
-                                <li key={index}>
-                                    {err}
-                                </li>
-                            );    
-                        })}
-                    </ul>
-                )}
-
+        const configAuthWrapper = {
+            headline: 'No account? sign up here'
+        };
+        return(
+        
+        <AuthWrapper {...configAuthWrapper}>
             <div className ="formWrap">
                 <form onSubmit={this.handleFormSubmit}>
-                    <div className="socialSignIn">
-                        <div className="signUpItems">
-                            <FormInput 
-                            type="text"
-                            name="displayName"
-                            value={displayName}
-                            placeholder= "Enter Name"
-                            onChange={this.handleChange} />
+                        <FormInput 
+                        type="text"
+                        name="displayName"
+                        value={displayName}
+                        placeholder= "Enter Name"
+                        onChange={this.handleChange} />
 
-                            <FormInput 
-                            type="email"
-                            name="email"
-                            value={email}
-                            placeholder= "Enter email"
-                            onChange={this.handleChange} />
+                        <FormInput 
+                        type="email"
+                        name="email"
+                        value={email}
+                        placeholder= "Enter email"
+                        onChange={this.handleChange} />
 
-                            <FormInput 
-                            type="password"
-                            name="password"
-                            value={password}
-                            placeholder= "Enter Password"
-                            onChange={this.handleChange} />
+                        <FormInput 
+                        type="password"
+                        name="password"
+                        value={password}
+                        placeholder= "Enter Password"
+                        onChange={this.handleChange} />
 
-                            <FormInput 
-                            type="password"
-                            name="confirmPassword"
-                            value={confirmPassword}
-                            placeholder= "Confirm Password"
-                            onChange={this.handleChange} />
+                        <FormInput 
+                        type="password"
+                        name="confirmPassword"
+                        value={confirmPassword}
+                        placeholder= "Confirm Password"
+                        onChange={this.handleChange} />
 
-                            <Button type="Submit">
-                                Sign Up
-                            </Button>
+                        <Button type="Submit">
+                            Sign Up
+                        </Button>
+                        {errors.length > 0 && (
+                        <ul>
+                            {errors.map((err,index) => {
+                                return (
+                                    <li key={index}>
+                                        {err}
+                                    </li>
+                                    );    
+                                })}
+                            </ul>
+                        )}
+                        <h1>or</h1>
 
-                            <h1>or</h1>
-
-                            <Button onClick={signInWithGoogle}>
-                                Sign Up With Google
-                            </Button>
-
-                        </div>
-                    </div>
-                </form>
-            </div>
-            </div>
-        </div>
+                        <Button onClick={signInWithGoogle}>
+                            Sign Up With Google
+                        </Button>
+                    </form>
+                </div>
+                
+            </AuthWrapper>
     );
 }
 }

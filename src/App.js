@@ -10,12 +10,13 @@ import HomepageLayout from './layouts/HomepageLayout';
 //pages
 import './default.scss';
 import Homepage from "./pages/Homepage";
-import Registration from './pages/Registration';
 import AboutMe from './pages/AboutMe';
 import ContactMe from './pages/ContactMe';
 import Gallery from './pages/Gallery';
 import Products from './pages/Products';
 import Login from './pages/Login';
+import Recovery from './pages/Recovery';
+import Register from './pages/Register';
 // import Products from './pages/Products';
 
 const initialState = {
@@ -73,11 +74,6 @@ componentWillUnmount(){
             <Homepage />
             </HomepageLayout>
         )} />
-        <Route path="/registration" render = {() => (
-          <MainLayout currentUser={currentUser}>
-            <Registration />
-          </MainLayout>
-        )}/>
         <Route path="/aboutme" render = {() => (
             <MainLayout currentUser={currentUser}>
             <AboutMe />
@@ -103,6 +99,18 @@ componentWillUnmount(){
           render = {() => currentUser ? <Redirect to="/"/> : (
               <MainLayout currentUser={currentUser}>
               <Login/>
+            </MainLayout>
+        )}/>
+        <Route path="/register" 
+          render = {() => currentUser ? <Redirect to="/"/> : (
+              <MainLayout currentUser={currentUser}>
+              <Register/>
+            </MainLayout>
+        )}/>
+        <Route path="/recovery" 
+          render = {() => (
+              <MainLayout>
+              <Recovery />
             </MainLayout>
         )}/>
       </Switch>
