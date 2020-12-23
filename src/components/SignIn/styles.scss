@@ -1,5 +1,11 @@
 
 .formWrap{
+  ul,li,.errorMessage{
+    font-size: 1rem;
+    color: red;
+    text-decoration: none;
+    list-style-type: none;
+  }
     button.btn {
       margin-top: 1rem;
     }

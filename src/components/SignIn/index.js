@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 const initialState = {
     email: '',
     password: '',
+    errors: []
 
 }
 
@@ -37,7 +38,7 @@ class SignIn extends Component {
     handleSubmit = async e => {
         e.preventDefault();
 
-        const { email, password } = this.state;
+        const { email, password,error } = this.state;
         
         try {
             await auth.signInWithEmailAndPassword(email, password);
@@ -45,13 +46,16 @@ class SignIn extends Component {
                 ...initialState
             });
         }
-        catch(err){
-            //console.log(err);
-        }
-
+        catch(e){
+            const err = ['Email or Password Is Incorrect'];
+            this.setState({
+                errors: err,
+           })
+           
+    }
     }
     render() {
-        const { email, password} = this.state
+        const { email, password, errors} = this.state
 
         const configAuthWrapper = {
             headline: 'Login'
@@ -75,18 +79,30 @@ class SignIn extends Component {
                         placeholder="Enter Password"
                         handleChange={this.handleChange}
                     />
+                    {errors.length > 0 && (
+                        <ul  >
+                            {errors.map((err,index) => {
+                                return (
+                                    <li id="errorMessage" key={index}>
+                                        {err}
+                                    </li>
+                                    );    
+                                })}
+                            </ul>
+                        )}
                     <Link id="forgotPassword" to="/recovery">
                         Forgot Password?
                     </Link>
                     <Button type="submit">
                         LogIn
                     </Button>
+                    
                     <Button onClick={signInWithGoogle}>
                         Sign In With Goole
                     </Button>
                     <h1>Or</h1>
                     <div className="socialSignIn">
-                    <Link to="/register">
+                    <Link id="register" to="/register">
                         Sign up
                     </Link>
                     </div>
