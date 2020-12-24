@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import "./styles.scss";
 import { Link } from 'react-router-dom';
-import { auth } from './../../firebase/utils';
+import { auth, handleUserProfile } from './../../firebase/utils';
+
 
 const Header = props => {
     const { currentUser } = props;
+    const [displayName, setDisplayName] = useState('');
 
+      
     return (
         <header className="header">
             <div className="wrap">
@@ -19,6 +22,7 @@ const Header = props => {
                 <div className="rightSide-Wrapper">    
                         {currentUser && (
                             <ul>
+                                
                                 <li>
                                     <Link to="products">Products</Link>
                                 </li>
@@ -30,6 +34,9 @@ const Header = props => {
                                 </li>
                                 <li>
                                     <Link to="aboutme">About Me</Link>
+                                </li>
+                                <li>
+                                     <Link to="dashboard">My Account</Link>
                                 </li> 
                                 <li>
                                     <span onClick={() => auth.signOut()}>
@@ -40,7 +47,7 @@ const Header = props => {
                         )}
                         {!currentUser && (
                         <ul>
-                            <li>
+                                <li>
                                     <Link to="products">Products</Link>
                                 </li>
                                 <li>

@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { auth, handleUserProfile } from './firebase/utils';
 import { setCurrentUser } from './redux/User/user.actions';
+
+//high order component
+//WithAuth can restrict access to pages based on being logged in or not
+import WithAuth from './hoc/withAuth';
+
 //layouts
 import MainLayout from './layouts/MainLayout';
 import HomepageLayout from './layouts/HomepageLayout';
@@ -18,16 +23,15 @@ import Products from './pages/Products';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
 // import Products from './pages/Products';
 
-class App extends Component {
-  authListener = null;
+const App = props =>  {
+  const { setCurrentUser, currentUser } = props;
 
-componentDidMount(){
-  const { setCurrentUser } = this.props;
-
-  //Once auth state has changed, go into this function
-  this.authListener = auth.onAuthStateChanged(async userAuth => {
+  useEffect(() => {
+  //a function to see what happens on an on statechange 
+  const authListener = auth.onAuthStateChanged(async userAuth => {
     //if userAuth is null or not
     if(userAuth) {
       const userRef = await handleUserProfile(userAuth);
@@ -42,16 +46,15 @@ componentDidMount(){
     //userAuth returns null if no user is logged in, which will set the current user to null
     setCurrentUser(userAuth);
   });
-}
 
-componentWillUnmount(){
-  //this will call and return null which will log you out
-  this.authListener();
-}
 
-  render() {
+    return () => {
+      authListener();
+    }
+  }, []);
+
     //sets the currentUser to the user that is logged in
-    const { currentUser } = this.props;
+
   return (
     <div className="App">
       <Switch>
@@ -100,10 +103,17 @@ componentWillUnmount(){
               <Login/>
             </MainLayout>
         )}/>
+        <Route path="/dashboard" 
+          render = {() => (
+            <WithAuth>
+              <MainLayout>
+                <Dashboard />
+              </MainLayout>
+            </WithAuth>
+        )}/>
       </Switch>
     </div>
   );
-}
 }
 
 const mapStateToProps = ({ user }) => ({
