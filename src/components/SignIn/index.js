@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //useState lets us use a passed in state in our componenent
+
+import { useDispatch, useSelector } from 'react-redux';
+import { signInUser, signInWithGoogle, resetAllAuthForms} from './../../redux/User/user.actions';
 
 import './styles.scss';
 import Button from "./../forms/Button";
 import FormInput from "./../forms/FormInput"
-import { signInWithGoogle,auth } from './../../firebase/utils';
 import AuthWrapper from './../AuthWrapper';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
+const mapState = ({ user }) => ({
+    signInSuccess: user.signInSuccess,
+    signInWithGoogle: user.signInWithGoogle
+})
 
 const SignIn = props => {
-
+    //definting dispatch to use useDispatch as a function
+    const { signInSuccess } = useSelector(mapState);
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
+
+    //if that thing called in the [] changes, then use effect code is run with the payload
+    // of whats in the []
+    useEffect(() => {
+        if(signInSuccess) {
+            resetForm();
+            dispatch(resetAllAuthForms());
+            props.history.push('/');
+        }
+    }, [signInSuccess]);
 
     const resetForm = () => {
         setEmail('');
@@ -22,20 +41,15 @@ const SignIn = props => {
 
     //handleSubmit makes it so the page wont reload on 
     //button click, called in form onSubmit
-    const handleSubmit = async e => {
+    const handleSubmit = e => {
+        //prevents page reload after hitting the submit button
         e.preventDefault();
-        
-        try {
-            await auth.signInWithEmailAndPassword(email, password);
-            resetForm();
-        }
-        catch(e){
-            const err = ["Either username or password is incorrect"];
-            setErrors(err);
-           
+        dispatch(signInUser({email, password}));
     }
+    
+    const handleGoogleSignIn = () => {
+        dispatch(signInWithGoogle())
     }
-        
 
         const configAuthWrapper = {
             headline: 'Login'
@@ -77,7 +91,7 @@ const SignIn = props => {
                         LogIn
                     </Button>
                     
-                    <Button onClick={signInWithGoogle}>
+                    <Button onClick={handleGoogleSignIn}>
                         Sign In With Goole
                     </Button>
                     <h1>Or</h1>
@@ -92,5 +106,5 @@ const SignIn = props => {
     );
 }
 
-
-export default SignIn;
+//tutorial has this wrapping in withRouter, but that errors out on me so idk, still works
+export default withRouter(SignIn);

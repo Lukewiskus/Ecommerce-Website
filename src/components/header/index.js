@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import "./styles.scss";
 import { Link } from 'react-router-dom';
 import { auth, handleUserProfile } from './../../firebase/utils';
 
+const mapState = ({ user }) => ({
+    currentUser: user.currentUser 
+});
 
 const Header = props => {
-    const { currentUser } = props;
+    const { currentUser } = useSelector(mapState);
     const [displayName, setDisplayName] = useState('');
 
       
@@ -74,13 +77,8 @@ Header.defaultProps = {
     currentUser: null
 };
 
-const mapStateToProps = ({ user }) => ({
-    //the user function was defined in root Reducer, passed down in provider
-    //because of the code, it will be null if nothing, but will be the user if there is a user:)
-    currentUser: user.currentUser 
-});
 
 //the connect func was imported, and it calls the function we wrote above and thats how it functionally
 //goes through the code
-export default connect(mapStateToProps, null)(Header);
+export default Header;
 
