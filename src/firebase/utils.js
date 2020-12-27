@@ -17,7 +17,7 @@ export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ prompt: 'select_account' });
 
 
-export const handleUserProfile = async (userAuth, additionalData) => {
+export const handleUserProfile = async ( {userAuth, additionalData } ) => {
     //if user is null, return
     if(!userAuth) return;
     //check to see if user is a valid user
@@ -49,3 +49,16 @@ export const handleUserProfile = async (userAuth, additionalData) => {
     }
     return userRef;
 };
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        // unsubscribe const is callinging on the onStateChange and 
+        //checking to see if the user is signed in
+        // so the page can reflect that even after they
+        //reloaded the page or something like that
+        const unsubscribe = auth.onAuthStateChanged(userAuth => {
+            unsubscribe();
+            resolve(userAuth);
+        }, reject)
+    })
+}

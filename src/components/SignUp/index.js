@@ -1,20 +1,21 @@
-import React, { useState, useEffect} from 'react';
-import { withRouter } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { signUpUser, signInWithGoogle, resetAllAuthForms } from "./../../redux/User/user.actions";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import './styles.scss';
 import Button from "./../forms/Button";
 import FormInput from "./../forms/FormInput";
 import AuthWrapper from './../AuthWrapper';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetAllAuthForms, signUpUserStart, googleSignInStart } from '../../redux/User/user.actions';
 
 const mapState = ({ user }) => ({
-    signUpSuccess: user.signUpSuccess,
-    signUpError: user.signUpError
-})
+    currentUser: user.currentUser,
+    userErr: user.userErr
+});
 
 const SignUp = props => {
+    const { currentUser, userErr } = useSelector(mapState);
+    const history = useHistory();
     const dispatch = useDispatch();
-    const { signUpSuccess, signUpError} = useSelector(mapState);
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,19 +23,21 @@ const SignUp = props => {
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        if(signUpSuccess){
+        if(currentUser) {
             reset();
-            dispatch(resetAllAuthForms());
-            props.history.push('/');
+            history.push('/');
         }
-    }, [signUpSuccess]);
+    }, [currentUser]);
 
     useEffect(() => {
-        if(Array.isArray(signUpError) && signUpError.length > 0){
-            setErrors(signUpError);
+        if(Array.isArray(userErr) && userErr.length > 0) {
+            setErrors(userErr);
         }
-    }, [signUpError]);
-
+    }, [userErr]);
+    
+    
+    
+    
     //Handle change takes in name and value, and on each change, value gets updated, and dispalyed on the screen
     
     const reset = () => {
@@ -42,12 +45,16 @@ const SignUp = props => {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        setErrors([]); 
+        setErrors([]);
     }
 
-     const handleFormSubmit = async event => {
+    const handleGoogleSignIn = () => {
+        dispatch(googleSignInStart())
+    }
+
+     const handleFormSubmit = event => {
         event.preventDefault();
-        dispatch(signUpUser({
+        dispatch(signUpUserStart({
             displayName,
             email,
             password,
@@ -55,10 +62,12 @@ const SignUp = props => {
         }));
     }
         
-        const configAuthWrapper = {
-            headline: 'No account? sign up here'
-        };
-        return(
+    const configAuthWrapper = {
+        headline: 'No account? sign up here'
+    };
+
+
+    return(
         
         <AuthWrapper {...configAuthWrapper}>
             <div className ="formWrap">
@@ -107,7 +116,7 @@ const SignUp = props => {
                         )}
                         <h1>or</h1>
 
-                        <Button onClick={signInWithGoogle}>
+                        <Button onClick={handleGoogleSignIn}>
                             Sign Up With Google
                         </Button>
                     </form>
@@ -117,4 +126,5 @@ const SignUp = props => {
     );
 }
 
-export default withRouter(SignUp);
+//wrapping it withRouter gives us access to props.history
+export default SignUp;

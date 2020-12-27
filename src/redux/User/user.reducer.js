@@ -2,54 +2,36 @@ import userTypes from './user.types';
 
 const INITIAL_STATE = {
     currentUser: null,
-    signInSuccess: false,
-    signUpError: [],
-    signUpSuccess: false,
     resetPasswordSuccess: false,
-    resetPasswordError: []
+    userErr: []
 };
 
 const userReducer = (state=INITIAL_STATE, action) => {
     //a switch statement like in class
     switch(action.type) {
-        case userTypes.SET_CURRENT_USER:
-            // if userTypes calls set_current_user, then unrap the state and set currentUser to the payload of the state
+        case userTypes.SIGN_IN_SUCCESS:
             return {
                 ...state,
-                currentUser: action.payload
+                currentUser: action.payload,
+                userErr: []
             }
-        case userTypes.SIGN_IN_SUCCESS:
+
+        case userTypes.USER_ERROR:
             return{
                 ...state,
-                signInSuccess: action.payload
-            }
-        case userTypes.SIGN_UP_ERROR:
-            return{
-                ...state,
-                signUpError: action.payload
-            }
-        case userTypes.SIGN_UP_SUCCESS:
-            return{
-                ...state,
-                signUpSuccess: action.payload
-            }
-        case userTypes.RESET_PASSWORD_ERROR:
-            return{
-                ...state,
-                resetPasswordError: action.payload
+                userErr: action.payload
             }
         case userTypes.RESET_PASSWORD_SUCCESS:
             return{
                 ...state,
                 resetPasswordSuccess: action.payload
             }
-        case userTypes.RESET_AUTH_FORMS:
+        case userTypes.RESET_USER_STATE:
+        case userTypes.SIGN_OUT_USER_SUCCESS:
             return{
-                signInSuccess: false,
-                signUpError: [],
-                signUpSuccess: false,
-                resetPasswordSuccess: false,
-                resetPasswordError: []
+                //unwraps all of state and resets the current user to null
+                ...state,
+                ...INITIAL_STATE
             }
         //else return the state
         default: 

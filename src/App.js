@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { auth, handleUserProfile } from './firebase/utils';
-import { setCurrentUser } from './redux/User/user.actions';
+import { Switch, Route } from 'react-router-dom';
+import { setCurrentUser, checkUserSession } from './redux/User/user.actions';
+import { useDispatch } from 'react-redux';
 
 //high order component
 //WithAuth can restrict access to pages based on being logged in or not
@@ -27,30 +27,11 @@ import Dashboard from './pages/Dashboard';
 // import Products from './pages/Products';
 
 const App = props =>  {
-  const { setCurrentUser, currentUser } = props;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-  //a function to see what happens on an on statechange 
-  const authListener = auth.onAuthStateChanged(async userAuth => {
-    //if userAuth is null or not
-    if(userAuth) {
-      const userRef = await handleUserProfile(userAuth);
-      //userRef now has methods that can be used from firebase API
-      userRef.onSnapshot(snapshot => {
-        setCurrentUser({
-          id: snapshot.id,
-          ...snapshot.data()
-        });
-      })
-    }
-    //userAuth returns null if no user is logged in, which will set the current user to null
-    setCurrentUser(userAuth);
-  });
-
-
-    return () => {
-      authListener();
-    }
+    dispatch(checkUserSession());
+    
   }, []);
 
     //sets the currentUser to the user that is logged in
@@ -85,7 +66,7 @@ const App = props =>  {
         )}/>
         
         <Route path="/register" 
-          render = {() => currentUser ? <Redirect to="/"/> : (
+          render =  {() => (
               <MainLayout>
               <Register/>
             </MainLayout>
@@ -98,13 +79,14 @@ const App = props =>  {
         )}/>
         <Route path="/login" 
         //if currentUser exisits, redirect to homepage, i guess ? means exist lol
-          render = {() => currentUser ? <Redirect to="/"/> : (
+          render =  {() => (
               <MainLayout>
               <Login/>
             </MainLayout>
         )}/>
         <Route path="/dashboard" 
           render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
             <WithAuth>
               <MainLayout>
                 <Dashboard />
