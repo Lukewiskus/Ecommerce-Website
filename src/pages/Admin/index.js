@@ -63,11 +63,16 @@ const Admin = props => {
         <div className="admin">
             <div className="callToActions">
                 <ul>
-                    <l1>
+                    <li>
+                        <h1>
+                            Manage Products
+                        </h1>
+                    </li>
+                    <li>
                         <Button onClick={() => toggleModal()}>
                             Add new product
                         </Button>
-                    </l1>
+                    </li>
                 </ul>
             </div>
             <Modal {...congifModal}>
@@ -128,13 +133,7 @@ const Admin = props => {
             <div className="manageProducts">
                 <table border="0" cellPadding="0" cellSpacing="0">
                     <tbody>
-                        <tr>
-                            <th>
-                                <h1>
-                                    Manage Products
-                                </h1>
-                            </th>
-                        </tr>
+                        
                         <tr>
                             <td>
                                 <table className="results" border="0" cellPadding="10" cellSpacing="0">
