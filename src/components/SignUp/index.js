@@ -34,12 +34,7 @@ const SignUp = props => {
             setErrors(userErr);
         }
     }, [userErr]);
-    
-    
-    
-    
     //Handle change takes in name and value, and on each change, value gets updated, and dispalyed on the screen
-    
     const reset = () => {
         setDisplayName('');
         setEmail('');
@@ -68,7 +63,6 @@ const SignUp = props => {
 
 
     return(
-        
         <AuthWrapper {...configAuthWrapper}>
             <div className ="formWrap">
                 <form onSubmit={handleFormSubmit}>
@@ -121,7 +115,6 @@ const SignUp = props => {
                         </Button>
                     </form>
                 </div>
-                
             </AuthWrapper>
     );
 }

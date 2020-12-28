@@ -22,6 +22,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 
 //pages
 import './default.scss';
+import Search from "./pages/Search";
 import Homepage from "./pages/Homepage";
 import AboutMe from './pages/AboutMe';
 import ContactMe from './pages/ContactMe';
@@ -53,6 +54,11 @@ const App = props =>  {
             <Homepage />
             </HomepageLayout>
         )} />
+        <Route path="/products" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
+        )} />
         <Route path="/aboutme" render = {() => (
             <MainLayout>
             <AboutMe />
@@ -68,11 +74,11 @@ const App = props =>  {
             <ContactMe />
           </MainLayout>
         )}/>
-        <Route path="/products" render = {() => (
+        {/* <Route path="/products" render = {() => (
             <MainLayout>
             <Products/>
           </MainLayout>
-        )}/>        
+        )}/>         */}
         <Route path="/register" 
           render =  {() => (
               <MainLayout>

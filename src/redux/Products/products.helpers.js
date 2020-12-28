@@ -26,6 +26,7 @@ export const handleFetchProducts = () => {
         //productsArray and returns it
         firestore
             .collection('products')
+            .orderBy('createdDate')
             .get()
             .then(snapshot => {
                 const productsArray = snapshot.docs.map(doc => {

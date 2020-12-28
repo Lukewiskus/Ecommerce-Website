@@ -96,6 +96,9 @@ const Admin = props => {
                             }, {
                                 value: "belts",
                                 name: "Belts"
+                            }, {
+                                value: "other",
+                                name: "Other"
                             }]}
                             handleChange={e => setProductCategory(e.target.value)}
                             />
