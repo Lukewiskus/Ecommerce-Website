@@ -16,6 +16,8 @@ import WithAdminAuth from './hoc/withAdminAuth';
 //layouts
 import MainLayout from './layouts/MainLayout';
 import HomepageLayout from './layouts/HomepageLayout';
+import AdminLayout from './layouts/AdminLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 
 
 //pages
@@ -103,10 +105,10 @@ const App = props =>  {
           render = {() => (
             //withAuth makes it so you get redirected to login if you are not logged in trying to access it
             <WithAdminAuth>
-              <MainLayout>
-                <Admin/>
-              </MainLayout>
-              </WithAdminAuth>
+              <AdminLayout>
+                  <Admin/>
+              </AdminLayout>
+            </WithAdminAuth>
           )}/>
       </Switch>
     </div>
