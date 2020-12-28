@@ -26,7 +26,7 @@ export const handleUserProfile = async ( {userAuth, additionalData } ) => {
     const { uid } = userAuth;
     //path to document that holds the user in firebase data
     //if user exists in our database, its return this line below
-    const userRef= firestore.doc(`users/${uid}`)
+    const userRef = firestore.doc(`users/${uid}`)
 
     //snapShot of the users info
     const snapShot = await userRef.get();
@@ -36,11 +36,13 @@ export const handleUserProfile = async ( {userAuth, additionalData } ) => {
     if(!snapShot.exists) {
         const { displayName, email} = userAuth;
         const timestamp = new Date();
+        const userRoles = ['user']
         try {
             await userRef.set({
                 displayName,
                 email,
                 createdDate: timestamp,
+                userRoles,
                 ...additionalData
             });
         } catch(err){

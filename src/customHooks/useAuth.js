@@ -1,6 +1,7 @@
 //all custom hooks should be prefixed with use
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 //this custom hook will be used to
 
@@ -16,12 +17,13 @@ const mapState = ({ user }) => ({
 // need to be redirected, which is what this hook does
 const useAuth = props => {
     const { currentUser } = useSelector(mapState);
+    const history = useHistory();
 
     useEffect(() => {
         //if current user is null, then redirect user to log in page
         if(!currentUser) {
             //this redirects the user to the login page if they are trying to access a page without they shouldnt
-            props.history.push('/login');
+            history.push('/login');
         }
     }, [currentUser]);
     

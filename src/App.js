@@ -4,9 +4,14 @@ import { Switch, Route } from 'react-router-dom';
 import { setCurrentUser, checkUserSession } from './redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 
+
+//components
+import AdminToolBar from './components/AdminToolbar';
+
 //high order component
 //WithAuth can restrict access to pages based on being logged in or not
 import WithAuth from './hoc/withAuth';
+import WithAdminAuth from './hoc/withAdminAuth';
 
 //layouts
 import MainLayout from './layouts/MainLayout';
@@ -24,6 +29,7 @@ import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Admin from './pages/Admin';
 // import Products from './pages/Products';
 
 const App = props =>  {
@@ -38,6 +44,7 @@ const App = props =>  {
 
   return (
     <div className="App">
+      <AdminToolBar />
       <Switch>
         <Route exact path="/" render={() => (
           <HomepageLayout>
@@ -63,8 +70,7 @@ const App = props =>  {
             <MainLayout>
             <Products/>
           </MainLayout>
-        )}/>
-        
+        )}/>        
         <Route path="/register" 
           render =  {() => (
               <MainLayout>
@@ -93,6 +99,15 @@ const App = props =>  {
               </MainLayout>
             </WithAuth>
         )}/>
+        <Route path="/admin" 
+          render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
+            <WithAdminAuth>
+              <MainLayout>
+                <Admin/>
+              </MainLayout>
+              </WithAdminAuth>
+          )}/>
       </Switch>
     </div>
   );

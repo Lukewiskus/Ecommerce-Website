@@ -3,16 +3,17 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
   .wrap {
+    position: relative;
     height: 100%;
-    max-width: 145rem;
+    width: 100%; 
     margin: 0 auto;
 
     .logo {
       cursor: pointer;
+      padding-right: 0px;
       width: 13rem;
-      position: absolute;
       top: 1rem;
-      left: 1.5rem;
+      left: 0;
       display: block;
       outline: 5px black;
     }
@@ -31,7 +32,7 @@
       li {
         display: inline-block;
         list-style-type: none;
-        margin-right: 1.5rem;
+        margin-right: 1rem;
 
         &:last-child {
           margin-right: 0;
