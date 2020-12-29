@@ -31,15 +31,13 @@ export function* onAddProductStart() {
     yield takeLatest(productsTypes.ADD_NEW_PRODUCT_START, addProduct)
 }
 
-export function* fetchProducts() {
+export function* fetchProducts({ payload }) {
     try{
         //yield makes sure we can await for the response from the helperfunction
-        const products = yield handleFetchProducts();
+        const products = yield handleFetchProducts(payload);
         //it takes the given data and uses the action setProducts to set the products
         //into the store
-        console.log("sdfdsf")
         yield put(
-            
             setProducts(products)
         );
     } catch(err) {

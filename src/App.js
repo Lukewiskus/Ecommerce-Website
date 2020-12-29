@@ -54,7 +54,12 @@ const App = props =>  {
             <Homepage />
             </HomepageLayout>
         )} />
-        <Route path="/products" render={() => (
+        <Route exact path="/products" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
+        )} />
+        <Route path="/products/:filterType" render={() => (
           <MainLayout>
             <Search />
           </MainLayout>

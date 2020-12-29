@@ -1,9 +1,18 @@
+.noResults {
+    padding-top: 3rem;
+}
+
 .products {
     display: block;
     width: 100%;
     padding: 0;
     margin: 2rem 0;
 
+    .productResults {
+        margin: 3rem -1rem 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
     .productResults {
         margin: 3rem -1rem 0;
         display: flex;

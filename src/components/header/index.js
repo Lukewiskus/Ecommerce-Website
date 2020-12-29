@@ -34,7 +34,7 @@ const Header = props => {
                                     <Link to="products">Products</Link>
                                 </li>
                                 <li>
-                                     <Link to="gallery">Gallery</Link>
+                                     <Link exact to="gallery">Gallery</Link>
                                 </li>
                                 <li>
                                     <Link to="contactme">Contact Me</Link>

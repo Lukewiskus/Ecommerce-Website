@@ -20,22 +20,41 @@ export const handleAddProduct = product => {
         });
     }
 
-export const handleFetchProducts = () => {
+export const handleFetchProducts = ( { filterType, startAfterDoc, presistProducts=[] }) => {
     return new Promise((resolve, reject) => {
         //goes into firestore, collects the data and puts it into the
         //productsArray and returns it
-        firestore
-            .collection('products')
-            .orderBy('createdDate')
+
+        //
+        const pageSize = 6;
+        
+        let ref = firestore.collection('products').orderBy('createdDate').limit(pageSize);
+
+        if(filterType) ref = ref.where('productCategory','==',filterType)
+        //if startAfterDoc exisits, then we hit laod more, so chain on more
+        //basically starAfterDoc is the document that it will load 6 more of
+        //after that point
+        if(startAfterDoc) ref = ref.startAfter(startAfterDoc);
+        ref
             .get()
             .then(snapshot => {
-                const productsArray = snapshot.docs.map(doc => {
+                const totalCount = snapshot.size;
+                const data = [
+                ...presistProducts,
+                ...snapshot.docs.map(doc => {
                     return {
                         ...doc.data(),
                         documentID: doc.id
                     }
-                });
-                resolve(productsArray);
+                })
+            ];
+            //we reutrn an array with a object with all the data, the last element 
+            //loaded, and if it is the last page or not
+            resolve({ 
+                data, 
+                queryDoc: snapshot.docs[totalCount -1],
+                isLastPage: totalCount < 1
+            });
             })
             .catch(err => {
                 reject(err);

@@ -5,6 +5,7 @@ import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
+import LoadMore from './../../components/Loadmore';
 import './styles.scss';
 
 import imagesz from './../../assets/belts-temp.png';
@@ -17,11 +18,12 @@ const Admin = props => {
     const { products } = useSelector(mapState);
     const dispatch = useDispatch();
     const [hideModal, setHideModal] = useState(true);
-    const [productCategory, setProductCategory] = useState('mens');
+    const [productCategory, setProductCategory] = useState('');
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
 
+    const { data, queryDoc, isLastPage } = products;
     useEffect(() => {
         dispatch(
             fetchProductsStart()
@@ -38,7 +40,7 @@ const Admin = props => {
 
     const resetForm = () => {
         setHideModal(true);
-        setProductCategory('mens');
+        setProductCategory('');
         setProductName('');
         setProductThumbnail('');
         setProductPrice(0);
@@ -58,6 +60,19 @@ const Admin = props => {
         //to close to modal and reset page to see the new product
         resetForm();
     }
+
+    const handleLoadMore = () => {
+        dispatch(
+            fetchProductsStart({
+                startAfterDoc: queryDoc, 
+                presistProducts: data
+            })
+        );
+    };
+
+    const configLoadMore = {
+        onLoadMoreEvt: handleLoadMore
+    };
 
     return(
         <div className="admin">
@@ -84,7 +99,10 @@ const Admin = props => {
                         </h2>
                         <FormSelect
                             label="Category"
-                            options = {[{
+                            options = {[
+                            {   value: '',
+                                name: "Select Category"
+                            }, {
                                 value: "wallet",
                                 name: "Wallet"
                             }, {
@@ -135,17 +153,17 @@ const Admin = props => {
             
             <div className="manageProducts">
                 <table border="0" cellPadding="0" cellSpacing="0">
-                    <tbody>
-                        
+                    <tbody> 
                         <tr>
                             <td>
                                 <table className="results" border="0" cellPadding="10" cellSpacing="0">
                                     <tbody>
-                                        {products.map((product, index) => {
+                                        {(Array.isArray(data) && data.length >0) && data.map((product, index) => {
                                             const { 
                                                 productName,
                                                 productThumbnail,
                                                 productPrice,
+                                                productCategory,
                                                 documentID
                                             } = product;
                                             return (
@@ -160,18 +178,26 @@ const Admin = props => {
                                                         ${productPrice}
                                                     </td>
                                                     <td>
+                                                        {productCategory}
+                                                    </td>
+                                                    <td>
                                                         <Button onClick={() => dispatch(deleteProductStart(documentID))}>
                                                             Delete
                                                         </Button>
                                                     </td>
                                                 </tr>
+        
                                             )
                                         })}
                                     </tbody>
+                                    {!isLastPage && (
+                                        <LoadMore {...configLoadMore}/>
+                                    )}
                                 </table>
                             </td>
                         </tr>
                     </tbody>
+                
                 </table>
             </div>
         </div>
