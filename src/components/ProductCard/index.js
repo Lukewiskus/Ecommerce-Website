@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductStart, setProduct } from './../../redux/Products/products.actions';
 import Button from './../forms/Button';
@@ -18,6 +18,7 @@ const configAddToCardBtn = {
 const ProductCard = ({}) => {
 
     const { product } = useSelector(mapState);
+    const history = useHistory();
     const dispatch = useDispatch();
     const { productID } = useParams();
     
@@ -31,6 +32,7 @@ const ProductCard = ({}) => {
     const handleAddToCart = (product) => {
         if(!product) return;
         dispatch(addProduct(product))
+        history.push('/cart')
     }
 
     useEffect(() => {
@@ -62,11 +64,28 @@ const ProductCard = ({}) => {
                         </span>      
                     </li>
                     <li>
-                        <div className="addToCart">
-                            <Button {...configAddToCardBtn} onClick={() => handleAddToCart(product)}>
-                                Add To Cart
-                            </Button>
-                        </div>
+                    
+                    </li>
+                    <li>
+                        <table className="bottomText" border="0" cellSpacing="0" cellPadding="0">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <Button id="button" {...configAddToCardBtn} onClick={() => handleAddToCart(product)}>
+                                            Add To Cart
+                                        </Button>
+                                    </td>
+                                    <td>
+                                        Or
+                                    </td>
+                                    <td>
+                                    <h3 className="backArrow" onClick={() => history.goBack()}>
+                                        Return
+                                    </h3>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </li>
                     <li>
                         <span dangerouslySetInnerHTML={{__html: productDescription}} />

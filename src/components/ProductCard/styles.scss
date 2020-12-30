@@ -1,7 +1,10 @@
 .productCard {
     max-width: 80rem;
     margin: 0 auto 10rem;
-
+    .backArrow{
+        cursor: pointer;
+        font-weight: bolder;
+    }
     .hero {
         display: block;
         width: 100%;
@@ -18,15 +21,24 @@
             padding: 0;
             margin: 0
         }
+        
         ul li {
             
             list-style-type: none;
             margin: 0 auto 1rem;
+            
+            table tbody, tr, td {
+                padding:0 10px;
+                #button{
+                    width: 30rem;
+                }
+            }
         
         h1{
             margin: 0;
         }
         }
+       
     }
     .addToCart{
         max-width: 20rem;
