@@ -20,7 +20,7 @@
     }
 }
 .product {
-    width: 33.333333333333%;
+    width: 33.3333333333%;
     padding: 0 1rem;
     margin: 0 auto 2rem;
     height: 55rem;
@@ -57,7 +57,12 @@
                 text-align: left;
                 margin: 0 0 .5rem;
 
+                a{
+                    color: black;
+                }
+
                 .name{
+
                     font-size: 3.2rem;
                     line-height: 1.2;
                     font-weight: 500;

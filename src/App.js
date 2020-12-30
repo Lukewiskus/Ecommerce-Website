@@ -17,22 +17,22 @@ import WithAdminAuth from './hoc/withAdminAuth';
 import MainLayout from './layouts/MainLayout';
 import HomepageLayout from './layouts/HomepageLayout';
 import AdminLayout from './layouts/AdminLayout';
-import DashboardLayout from './layouts/DashboardLayout';
 
 
 //pages
 import './default.scss';
+import Cart from "./pages/Cart";
 import Search from "./pages/Search";
 import Homepage from "./pages/Homepage";
 import AboutMe from './pages/AboutMe';
 import ContactMe from './pages/ContactMe';
 import Gallery from './pages/Gallery';
-import Products from './pages/Products';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import ProductDetails from './pages/ProductDetails';
 // import Products from './pages/Products';
 
 const App = props =>  {
@@ -54,16 +54,45 @@ const App = props =>  {
             <Homepage />
             </HomepageLayout>
         )} />
-        <Route exact path="/products" render={() => (
-          <MainLayout>
-            <Search />
-          </MainLayout>
-        )} />
+        <Route path="/admin/:filterType"
+          render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
+            <WithAdminAuth>
+              <AdminLayout>
+                  <Admin/>
+              </AdminLayout>
+            </WithAdminAuth>
+          )}/>
+        <Route path="/admin"
+          render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
+            <WithAdminAuth>
+              <AdminLayout>
+                  <Admin/>
+              </AdminLayout>
+            </WithAdminAuth>
+          )}/>
         <Route path="/products/:filterType" render={() => (
           <MainLayout>
             <Search />
           </MainLayout>
         )} />
+        <Route exact path="/products" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
+        )} />
+        
+        <Route path="/product/:productID" render={() => (
+          <MainLayout>
+            <ProductDetails />
+          </MainLayout>
+        )} />
+         <Route path="/cart" render = {() => (
+            <MainLayout>
+            <Cart />
+          </MainLayout>
+        )}/>
         <Route path="/aboutme" render = {() => (
             <MainLayout>
             <AboutMe />
@@ -79,11 +108,6 @@ const App = props =>  {
             <ContactMe />
           </MainLayout>
         )}/>
-        {/* <Route path="/products" render = {() => (
-            <MainLayout>
-            <Products/>
-          </MainLayout>
-        )}/>         */}
         <Route path="/register" 
           render =  {() => (
               <MainLayout>
@@ -112,15 +136,6 @@ const App = props =>  {
               </MainLayout>
             </WithAuth>
         )}/>
-        <Route path="/admin" 
-          render = {() => (
-            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
-            <WithAdminAuth>
-              <AdminLayout>
-                  <Admin/>
-              </AdminLayout>
-            </WithAdminAuth>
-          )}/>
       </Switch>
     </div>
   );

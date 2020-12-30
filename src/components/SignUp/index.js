@@ -5,7 +5,7 @@ import Button from "./../forms/Button";
 import FormInput from "./../forms/FormInput";
 import AuthWrapper from './../AuthWrapper';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetAllAuthForms, signUpUserStart, googleSignInStart } from '../../redux/User/user.actions';
+import { signUpUserStart, googleSignInStart } from '../../redux/User/user.actions';
 
 const mapState = ({ user }) => ({
     currentUser: user.currentUser,

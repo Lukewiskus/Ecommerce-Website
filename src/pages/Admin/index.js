@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductStart, fetchProductsStart, deleteProductStart } from './../../redux/Products/products.actions.js'
+import { addProductStart, fetchProductsStart, deleteProductStart, setProducts } from './../../redux/Products/products.actions.js'
 import Modal from './../../components/Modal';
+import { useHistory, useParams } from 'react-router-dom';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
 import LoadMore from './../../components/Loadmore';
+import CKEditor from 'ckeditor4-react';
 import './styles.scss';
-
-import imagesz from './../../assets/belts-temp.png';
 
 const mapState = ({ productsData }) => ({
     products: productsData.products
@@ -17,20 +17,28 @@ const mapState = ({ productsData }) => ({
 const Admin = props => {
     const { products } = useSelector(mapState);
     const dispatch = useDispatch();
+    const history = useHistory();
     const [hideModal, setHideModal] = useState(true);
+    const { filterType } = useParams();
     const [productCategory, setProductCategory] = useState('');
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
+    const [productDescription, setProductDescription] = useState('');
 
     const { data, queryDoc, isLastPage } = products;
-    useEffect(() => {
-        dispatch(
-            fetchProductsStart()
-        );
-    //when no dependencies are passed then it only runs on the first render of the compnent
-    }, []);
     
+    useEffect(() => {
+        console.log(filterType);
+        dispatch(fetchProductsStart({ filterType })
+        )
+        return () => {
+            dispatch(setProducts([]))
+        }
+    }, [filterType]);
+    
+
+
     const toggleModal = () => setHideModal(!hideModal);
     
     const congifModal = {
@@ -44,6 +52,7 @@ const Admin = props => {
         setProductName('');
         setProductThumbnail('');
         setProductPrice(0);
+        setProductDescription('');
     }
 
     const handleSubmit = e => {
@@ -54,16 +63,46 @@ const Admin = props => {
             productCategory,
             productName,
             productThumbnail,
-            productPrice
+            productPrice,
+            productDescription
         })
         );
         //to close to modal and reset page to see the new product
         resetForm();
     }
 
+    const handleFilter = (e) => {
+        const nextFilter = e.target.value;
+        history.push(`/admin/${nextFilter}`);
+    };
+
+    const configFilters = {
+        defaultValue: filterType,
+          options: [{
+            name: 'Show All',
+            value: ''
+          }, {
+            name: 'Wallet',
+            value: 'wallet'
+          }, {
+          name: 'Tote Bags',
+          value: 'tote-bags'
+          }, {
+          name: 'Guitar Straps',
+          value: 'guitar-straps'
+          }, {
+          name: 'Belts',
+          value: 'belts'
+      }, {
+          name: 'Other',
+          value: 'other'
+      }], handleChange: handleFilter
+      };
+
     const handleLoadMore = () => {
         dispatch(
             fetchProductsStart({
+                filterType,
                 startAfterDoc: queryDoc, 
                 presistProducts: data
             })
@@ -82,6 +121,12 @@ const Admin = props => {
                         <h1>
                             Manage Products
                         </h1>
+                    </li>
+                    <li>
+                        <h2>
+                            Search Your Product Type
+                        </h2>
+                    <FormSelect {...configFilters} />
                     </li>
                     <li>
                         <Button onClick={() => toggleModal()}>
@@ -144,6 +189,10 @@ const Admin = props => {
                                 value={productPrice}
                                 handleChange={e => setProductPrice(e.target.value)}
                             />
+                            <CKEditor
+                            //on a change, use the setter we made, and the evt.editor.getData() is from the dependicy itself
+                            onChange={evt => setProductDescription(evt.editor.getData())}
+                            />
                             <Button type="submit">
                                 Add product
                             </Button>  
@@ -169,7 +218,7 @@ const Admin = props => {
                                             return (
                                                 <tr key={index}>
                                                     <td>
-                                                        <img src={productThumbnail}/>
+                                                        <img src={productThumbnail} alt="Thumbnail"/>
                                                     </td>
                                                     <td>
                                                         {productName}
