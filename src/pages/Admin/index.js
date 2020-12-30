@@ -10,8 +10,6 @@ import LoadMore from './../../components/Loadmore';
 import CKEditor from 'ckeditor4-react';
 import './styles.scss';
 
-import imagesz from './../../assets/belts-temp.png';
-
 const mapState = ({ productsData }) => ({
     products: productsData.products
 });
@@ -220,7 +218,7 @@ const Admin = props => {
                                             return (
                                                 <tr key={index}>
                                                     <td>
-                                                        <img src={productThumbnail}/>
+                                                        <img src={productThumbnail} alt="Thumbnail"/>
                                                     </td>
                                                     <td>
                                                         {productName}

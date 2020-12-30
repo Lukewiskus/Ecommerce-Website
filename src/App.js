@@ -17,7 +17,6 @@ import WithAdminAuth from './hoc/withAdminAuth';
 import MainLayout from './layouts/MainLayout';
 import HomepageLayout from './layouts/HomepageLayout';
 import AdminLayout from './layouts/AdminLayout';
-import DashboardLayout from './layouts/DashboardLayout';
 
 
 //pages
@@ -27,7 +26,6 @@ import Homepage from "./pages/Homepage";
 import AboutMe from './pages/AboutMe';
 import ContactMe from './pages/ContactMe';
 import Gallery from './pages/Gallery';
-import Products from './pages/Products';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Register from './pages/Register';
@@ -104,11 +102,6 @@ const App = props =>  {
             <ContactMe />
           </MainLayout>
         )}/>
-        {/* <Route path="/products" render = {() => (
-            <MainLayout>
-            <Products/>
-          </MainLayout>
-        )}/>         */}
         <Route path="/register" 
           render =  {() => (
               <MainLayout>
