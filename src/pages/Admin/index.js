@@ -6,6 +6,7 @@ import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
 import LoadMore from './../../components/Loadmore';
+import CKEditor from 'ckeditor4-react';
 import './styles.scss';
 
 import imagesz from './../../assets/belts-temp.png';
@@ -22,6 +23,7 @@ const Admin = props => {
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
+    const [productDescription, setProductDescription] = useState('');
 
     const { data, queryDoc, isLastPage } = products;
     useEffect(() => {
@@ -44,6 +46,7 @@ const Admin = props => {
         setProductName('');
         setProductThumbnail('');
         setProductPrice(0);
+        setProductDescription('');
     }
 
     const handleSubmit = e => {
@@ -54,7 +57,8 @@ const Admin = props => {
             productCategory,
             productName,
             productThumbnail,
-            productPrice
+            productPrice,
+            productDescription
         })
         );
         //to close to modal and reset page to see the new product
@@ -143,6 +147,10 @@ const Admin = props => {
                                 step="1"
                                 value={productPrice}
                                 handleChange={e => setProductPrice(e.target.value)}
+                            />
+                            <CKEditor
+                            //on a change, use the setter we made, and the evt.editor.getData() is from the dependicy itself
+                            onChange={evt => setProductDescription(evt.editor.getData())}
                             />
                             <Button type="submit">
                                 Add product

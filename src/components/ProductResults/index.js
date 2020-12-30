@@ -101,10 +101,9 @@ const ProductResults = ({ }) => {
                 if(!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
                 
                 const configProduct = {
-                    productThumbnail,
-                    productName,
-                    productPrice
+                    ...products
                 };
+
                 return(
                     <Product {...configProduct} />
                 );

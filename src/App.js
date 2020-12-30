@@ -33,6 +33,7 @@ import Recovery from './pages/Recovery';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import ProductDetails from './pages/ProductDetails';
 // import Products from './pages/Products';
 
 const App = props =>  {
@@ -62,6 +63,11 @@ const App = props =>  {
         <Route path="/products/:filterType" render={() => (
           <MainLayout>
             <Search />
+          </MainLayout>
+        )} />
+        <Route path="/product/:productID" render={() => (
+          <MainLayout>
+            <ProductDetails />
           </MainLayout>
         )} />
         <Route path="/aboutme" render = {() => (
