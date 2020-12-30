@@ -55,16 +55,35 @@ const App = props =>  {
             <Homepage />
             </HomepageLayout>
         )} />
-        <Route exact path="/products" render={() => (
-          <MainLayout>
-            <Search />
-          </MainLayout>
-        )} />
+        <Route path="/admin/:filterType"
+          render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
+            <WithAdminAuth>
+              <AdminLayout>
+                  <Admin/>
+              </AdminLayout>
+            </WithAdminAuth>
+          )}/>
+        <Route path="/admin"
+          render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
+            <WithAdminAuth>
+              <AdminLayout>
+                  <Admin/>
+              </AdminLayout>
+            </WithAdminAuth>
+          )}/>
         <Route path="/products/:filterType" render={() => (
           <MainLayout>
             <Search />
           </MainLayout>
         )} />
+        <Route exact path="/products" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
+        )} />
+        
         <Route path="/product/:productID" render={() => (
           <MainLayout>
             <ProductDetails />
@@ -118,15 +137,6 @@ const App = props =>  {
               </MainLayout>
             </WithAuth>
         )}/>
-        <Route path="/admin" 
-          render = {() => (
-            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
-            <WithAdminAuth>
-              <AdminLayout>
-                  <Admin/>
-              </AdminLayout>
-            </WithAdminAuth>
-          )}/>
       </Switch>
     </div>
   );
