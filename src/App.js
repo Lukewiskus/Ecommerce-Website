@@ -21,6 +21,7 @@ import AdminLayout from './layouts/AdminLayout';
 
 //pages
 import './default.scss';
+import Payment from "./pages/Payment";
 import Cart from "./pages/Cart";
 import Search from "./pages/Search";
 import Homepage from "./pages/Homepage";
@@ -92,6 +93,13 @@ const App = props =>  {
             <MainLayout>
             <Cart />
           </MainLayout>
+        )}/>
+        <Route path="/payment" render = {() => (
+          <WithAuth>
+            <MainLayout>
+            <Payment />
+          </MainLayout>
+          </WithAuth>
         )}/>
         <Route path="/aboutme" render = {() => (
             <MainLayout>

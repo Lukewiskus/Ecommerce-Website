@@ -1,4 +1,6 @@
-input {
+.formRow {
+  input,
+  &.checkoutInput select {
     display: block;
     width: 100%;
     padding: 1rem 0.5rem;
@@ -10,3 +12,4 @@ input {
     border: 1px solid black;
     outline: none;
   }
+}

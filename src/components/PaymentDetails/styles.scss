@@ -1,0 +1,18 @@
+.paymentDetails {
+  display: block;
+  width: 100%;
+  max-width: 100rem;
+  padding: 0;
+  margin: 2rem auto;
+
+  .group {
+    margin: 0 0 2rem;
+    .cardInput {
+      padding-top: 2rem;
+      padding-bottom: 10rem;
+    }
+  }
+  .submitButton {
+    padding-bottom: 3rem;
+  }
+}
