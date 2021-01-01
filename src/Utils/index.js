@@ -13,5 +13,5 @@ export const checkUserIsAdmin = currentUser => {
 
 export const apiInstance = axios.create({
     //update once this is on production
-    baseURL: 'http://localhost:5001/mercil-leather-website/us-central1/api'
+    baseURL: 'https://us-central1-mercil-leather-website.cloudfunctions.net/api'
 });
