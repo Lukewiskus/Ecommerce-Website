@@ -5,9 +5,6 @@ import { setCurrentUser, checkUserSession } from './redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 
 
-//components
-import AdminToolBar from './components/AdminToolbar';
-
 //high order component
 //WithAuth can restrict access to pages based on being logged in or not
 import WithAuth from './hoc/withAuth';
@@ -21,6 +18,7 @@ import AdminLayout from './layouts/AdminLayout';
 
 //pages
 import './default.scss';
+import EditProductPage from './pages/EditProductPage';
 import Payment from "./pages/Payment";
 import Cart from "./pages/Cart";
 import Search from "./pages/Search";
@@ -48,8 +46,12 @@ const App = props =>  {
 
   return (
     <div className="App">
-      <AdminToolBar />
       <Switch>
+      <Route path="/productedit/:editType" render={() => (
+          <MainLayout>
+            <EditProductPage />
+          </MainLayout>
+        )} />
         <Route exact path="/" render={() => (
           <HomepageLayout>
             <Homepage />
@@ -73,6 +75,7 @@ const App = props =>  {
               </AdminLayout>
             </WithAdminAuth>
           )}/>
+        
         <Route path="/products/:filterType" render={() => (
           <MainLayout>
             <Search />
@@ -89,6 +92,7 @@ const App = props =>  {
             <ProductDetails />
           </MainLayout>
         )} />
+        
          <Route path="/cart" render = {() => (
             <MainLayout>
             <Cart />

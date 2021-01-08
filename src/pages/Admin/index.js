@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProductStart, fetchProductsStart, deleteProductStart, setProducts } from './../../redux/Products/products.actions.js'
 import AddProductModal from './../../components/Modal/AddProductModal';
 import EditProductModal from './../../components/Modal/EditProductModal';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
@@ -154,30 +154,32 @@ const Admin = props => {
                             Add new product
                         </h2>
                         <FormSelect
+                            required
                             label="Category"
                             options = {[
                             {   value: '',
                                 name: "Select Category"
                             }, {
-                                value: "wallet",
+                                value: "Wallet",
                                 name: "Wallet"
                             }, {
-                                value: "guitar-straps",
+                                value: "Guitar-Straps",
                                 name: "Guitar Straps"
                             }, {
-                                value: "tote-bags",
+                                value: "Tote-Bags",
                                 name: "Tote Bags"
                             }, {
-                                value: "belts",
+                                value: "Belts",
                                 name: "Belts"
                             }, {
-                                value: "other",
+                                value: "Other",
                                 name: "Other"
                             }]}
                             handleChange={e => setProductCategory(e.target.value)}
                             />
                             
                             <FormInput
+                            required
                             label="Name"
                             type="text"
                             value={productName}
@@ -185,6 +187,7 @@ const Admin = props => {
                             />
 
                             <FormInput 
+                            required
                                 label="Main image URL"
                                 type="url"
                                 value={productThumbnail}
@@ -192,6 +195,7 @@ const Admin = props => {
                             />
 
                            <FormInput 
+                           required
                                 label="Price"
                                 type="number"
                                 min="0.00"
@@ -201,6 +205,7 @@ const Admin = props => {
                                 handleChange={e => setProductPrice(e.target.value)}
                             />
                             <CKEditor
+                            required
                             //on a change, use the setter we made, and the evt.editor.getData() is from the dependicy itself
                             onChange={evt => setProductDescription(evt.editor.getData())}
                             />
@@ -210,73 +215,13 @@ const Admin = props => {
                     </form>
                 </div>
             </AddProductModal>
-            <EditProductModal {...configEditProductModal}>                        
-                                                    <div className="editProductForm">
-                                                        <form onSubmit={handleEditSubmit}>
-                                                            <h2>
-                                                                Edit Product
-                                                            </h2>
-                                                            <FormSelect
-                                                                label="Category"
-                                                                options = {[
-                                                                {   value: '',
-                                                                    name: "Select Category"
-                                                                }, {
-                                                                    value: "wallet",
-                                                                    name: "Wallet"
-                                                                }, {
-                                                                    value: "guitar-straps",
-                                                                    name: "Guitar Straps"
-                                                                }, {
-                                                                    value: "tote-bags",
-                                                                    name: "Tote Bags"
-                                                                }, {
-                                                                    value: "belts",
-                                                                    name: "Belts"
-                                                                }, {
-                                                                    value: "other",
-                                                                    name: "Other"
-                                                                }]}
-                                                                handleChange={e => setProductCategory(e.target.value)}
-                                                                />
-                                                                <FormInput
-                                                                placeholder= {productName}
-                                                                label="Name"
-                                                                type="text"
-                                                                value={productName}
-                                                                handleChange={e => setProductName(e.target.value)}
-                                                                />
-                                                                <FormInput 
-                                                                    label="Main image URL"
-                                                                    type="url"
-                                                                    value={productThumbnail}
-                                                                    handleChange={e => setProductThumbnail(e.target.value)}
-                                                                />
-                                                            <FormInput 
-                                                                    label="Price"
-                                                                    type="number"
-                                                                    min="0.00"
-                                                                    max="10000.00"
-                                                                    step="1"
-                                                                    value={productPrice}
-                                                                    handleChange={e => setProductPrice(e.target.value)}
-                                                                />
-                                                                <CKEditor
-                                                                //on a change, use the setter we made, and the evt.editor.getData() is from the dependicy itself
-                                                                onChange={evt => setProductDescription(evt.editor.getData())}
-                                                                />
-                                                                <Button type="submit">
-                                                                    Complete Edit
-                                                                </Button>  
-                                                        </form>
-                                                    </div>
-                                                </EditProductModal>
+
             <div className="manageProducts">
                 <table border="0" cellPadding="0" cellSpacing="0">
                     <tbody> 
                         <tr>
                             <td>
-                                <table className="results" border="0" cellPadding="10" cellSpacing="0">
+                                <table className="results" border="0" cellPadding="10" cellSpacing="10">
                                     <tbody>
                                         {(Array.isArray(data) && data.length >0) && data.map((product, index) => {
                                             const { 
@@ -287,7 +232,7 @@ const Admin = props => {
                                                 documentID
                                             } = product;
                                             return (
-                                                <div>
+                                                <div className="singleRow">
                                                 <tr key={index}>
                                                     <td>
                                                         <img src={productThumbnail} alt="Thumbnail"/>
@@ -307,9 +252,11 @@ const Admin = props => {
                                                         </Button>
                                                     </td>
                                                     <td>
-                                                        <Button onClick={() => toggleEditProductModal()}>
+                                                    <Link to={`/productedit/${documentID}`}>
+                                                        <Button >
                                                             Edit
                                                         </Button>
+                                                        </Link>
                                                     </td>
                                                 </tr>
                                                 </div>

@@ -19,6 +19,38 @@ export const handleAddProduct = product => {
             })
         });
     }
+export const handleEditProduct = product => {
+    const { newProductCategory,
+        newProductName,
+        newThumbnail,
+        newProductPrice,
+        newProductDesc,
+        documentID} = product;
+    console.log(newProductCategory,
+        newProductName,
+        newThumbnail,
+        newProductPrice,
+        newProductDesc,
+        documentID)
+    return new Promise((resolve, reject) => {
+        //go into the firestore, go into the coolect products, go into the 
+        // document, set it as the passed in product, then do a resolve if it works
+        // a reject if it does not
+        firestore
+            .collection('products')
+            .doc(documentID)
+            .update( {productCategory: newProductCategory,
+                        productName: newProductName,
+                        productPrice: newProductPrice,
+                        productThumbnail: newThumbnail})
+            .then(() => {
+                resolve()
+            })
+            .catch(err => {
+                reject(err);
+            })
+        });
+    }
 
 export const handleFetchProducts = ( { filterType, startAfterDoc, presistProducts=[] }) => {
     return new Promise((resolve, reject) => {

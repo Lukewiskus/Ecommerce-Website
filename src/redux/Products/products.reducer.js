@@ -17,6 +17,11 @@ const productsReducer = (state=INITIAL_STATE, action) => {
                 ...state,
                 product: action.payload
             }
+        case productTypes.EDIT_PRODUCT_START:
+            return{
+                ...state,
+                product: action.payload
+            }
         default:
             return state;
     }

@@ -1,0 +1,23 @@
+h2 {
+  padding-top: 2rem;
+}
+
+.goBackBtn {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 0;
+  background: black;
+  color: white;
+  font-size: 1.8rem;
+  line-height: 1;
+  font-weight: 300;
+  text-transform: uppercase;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  max-width: 40rem;
+  float: left !important;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
