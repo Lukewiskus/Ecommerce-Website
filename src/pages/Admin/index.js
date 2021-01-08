@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductStart, fetchProductsStart, deleteProductStart, setProducts } from './../../redux/Products/products.actions.js'
+import { uploadImageStart, addProductStart, fetchProductsStart, deleteProductStart, setProducts } from './../../redux/Products/products.actions.js'
 import AddProductModal from './../../components/Modal/AddProductModal';
 import EditProductModal from './../../components/Modal/EditProductModal';
 import { Link, useHistory, useParams } from 'react-router-dom';
@@ -9,27 +9,37 @@ import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
 import LoadMore from './../../components/Loadmore';
 import CKEditor from 'ckeditor4-react';
+import axios from 'axios';
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
-    products: productsData.products
+    products: productsData.products,
+    doucmentID: productsData
 });
 
 const Admin = props => {
-    const { products } = useSelector(mapState);
+    const { products, documentID } = useSelector(mapState);
     const dispatch = useDispatch();
     const history = useHistory();
     const [hideProductModal, setHideProductModal] = useState(true);
+    const [image, setImage] = useState(null)
     const { filterType } = useParams();
-    const [hideEditProductModal, setHideEditProductModal] = useState(true);
     const [productCategory, setProductCategory] = useState('');
     const [productName, setProductName] = useState('');
-    const [productThumbnail, setProductThumbnail] = useState('');
+    const [productThumbnail, setProductThumbnail] = useState("");
     const [productPrice, setProductPrice] = useState(0);
     const [productDescription, setProductDescription] = useState('');
-
     const { data, queryDoc, isLastPage } = products;
-    
+
+
+    useEffect(() => {
+        dispatch(fetchProductsStart({ filterType })
+        )
+        return () => {
+            dispatch(setProducts([]))
+        }
+    }, [filterType]);
+
     useEffect(() => {
         console.log(filterType);
         dispatch(fetchProductsStart({ filterType })
@@ -47,42 +57,37 @@ const Admin = props => {
         toggleProductModal
     };
 
-    const toggleEditProductModal = () => {
-        setHideEditProductModal(!hideEditProductModal)
-    }
-
-    const configEditProductModal = {
-        hideEditProductModal,
-        toggleEditProductModal
-    }
     const resetForm = () => {
         setHideProductModal(true);
         setProductCategory('');
         setProductName('');
-        setProductThumbnail('');
         setProductPrice(0);
         setProductDescription('');
     }
 
     const handleSubmit = e => {
         e.preventDefault();
-
         dispatch(
             addProductStart({
             productCategory,
             productName,
-            productThumbnail,
             productPrice,
-            productDescription
+            productThumbnail,
+            productDescription,
         })
         );
-        //to close to modal and reset page to see the new product
-        resetForm();
+        console.log("look here")
+        console.log(productName)
+        dispatch(uploadImageStart({
+            thisImage: image,
+            name: image.name,
+            id: productName
+        }))
+        
+        setTimeout(() => {  dispatch(fetchProductsStart({ filterType })
+        ) }, 1000);
+        resetForm()
     }
-    const handleEditSubmit = e => {
-        e.preventDefault();
-    }
-
     const handleFilter = (e) => {
         const nextFilter = e.target.value;
         history.push(`/admin/${nextFilter}`);
@@ -124,6 +129,8 @@ const Admin = props => {
     const configLoadMore = {
         onLoadMoreEvt: handleLoadMore
     };
+
+    
 
     return(
         <div className="admin">
@@ -185,14 +192,9 @@ const Admin = props => {
                             value={productName}
                             handleChange={e => setProductName(e.target.value)}
                             />
-
-                            <FormInput 
-                            required
-                                label="Main image URL"
-                                type="url"
-                                value={productThumbnail}
-                                handleChange={e => setProductThumbnail(e.target.value)}
-                            />
+                            
+                            <h2 className="AddProductText">Image For Thumbnail</h2>
+                            <input className="uploadBTN"required type="file" onChange={e => setImage(e.target.files[0])} />
 
                            <FormInput 
                            required
@@ -204,6 +206,8 @@ const Admin = props => {
                                 value={productPrice}
                                 handleChange={e => setProductPrice(e.target.value)}
                             />
+
+                            <h2 className="AddProductText">Product Description</h2>
                             <CKEditor
                             required
                             //on a change, use the setter we made, and the evt.editor.getData() is from the dependicy itself

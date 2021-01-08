@@ -5,6 +5,11 @@ export const addProductStart = productData => ({
     payload: productData
 });
 
+export const uploadImageStart = image => ({
+    type: productsTypes.UPLOAD_IMAGE_START,
+    payload: image
+})
+
 export const editProductStart = product => ({
     type: productsTypes.EDIT_PRODUCT_START,
     payload: product

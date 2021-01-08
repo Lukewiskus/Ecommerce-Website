@@ -1,13 +1,27 @@
+.sideBar {
+  z-index: -100;
+}
 .admin {
   padding: 0 10px;
 
+  .addNewProductForm {
+    .AddProductText {
+      font-size: 2rem;
+      text-transform: none;
+      margin-bottom: 0.3rem;
+    }
+    .uploadBTN {
+      padding-top: 0.3rem;
+      padding-bottom: 3rem;
+    }
+  }
   .callToActions {
     display: inline-block;
     width: 100%;
     padding: 0;
     margin: 0 auto;
 
-    ul,
+    s ul,
     li {
       width: 20rem;
       margin: 0;

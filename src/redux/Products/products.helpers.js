@@ -1,15 +1,17 @@
-import { firestore } from './../../firebase/utils';
-
+import { put } from 'redux-saga/effects';
+import { firestore, firestorage } from './../../firebase/utils';
 //firestore gives us access to the data in firebase
 
 export const handleAddProduct = product => {
+    console.log(product)
+    const { productName } = product;
     return new Promise((resolve, reject) => {
         //go into the firestore, go into the coolect products, go into the 
         // document, set it as the passed in product, then do a resolve if it works
         // a reject if it does not
         firestore
             .collection('products')
-            .doc()
+            .doc(`${productName}`)
             .set(product)
             .then(() => {
                 resolve()
@@ -21,28 +23,20 @@ export const handleAddProduct = product => {
     }
 export const handleEditProduct = product => {
     const { newProductCategory,
-        newProductName,
-        newThumbnail,
         newProductPrice,
         newProductDesc,
-        documentID} = product;
-    console.log(newProductCategory,
-        newProductName,
-        newThumbnail,
-        newProductPrice,
-        newProductDesc,
-        documentID)
+        id} = product;
     return new Promise((resolve, reject) => {
         //go into the firestore, go into the coolect products, go into the 
         // document, set it as the passed in product, then do a resolve if it works
         // a reject if it does not
         firestore
             .collection('products')
-            .doc(documentID)
-            .update( {productCategory: newProductCategory,
-                        productName: newProductName,
-                        productPrice: newProductPrice,
-                        productThumbnail: newThumbnail})
+            .doc(id)
+            .update( {
+                productCategory: newProductCategory,
+                productPrice: newProductPrice,
+                productDescription: newProductDesc})
             .then(() => {
                 resolve()
             })
@@ -51,6 +45,57 @@ export const handleEditProduct = product => {
             })
         });
     }
+export const handleSetImage = newurl => {
+
+    const { url, id } = newurl;
+
+    return new Promise((resolve, reject) => {
+        //go into the firestore, go into the coolect products, go into the 
+        // document, set it as the passed in product, then do a resolve if it works
+        // a reject if it does not
+        firestore
+            .collection('products')
+            .doc(id)
+            .update({productThumbnail: url})
+            .then(() => {
+                resolve()
+            })
+            .catch(err => {
+                reject(err);
+            })
+        });
+    }
+export const handleUploadImage = image => {
+    console.log("adsads")
+
+    const { thisImage, name, id} = image;
+    const uploadTask = firestorage.ref(`images/${name}`).put(thisImage);
+    return new Promise((resolve, reject) => {
+        uploadTask.on(
+            "state_changed",
+            snapshot => {},
+            error => {
+                console.log(error);
+            },
+            () => {
+                firestorage
+                    .ref('images')
+                    .child(name)
+                    .getDownloadURL()
+                    .then(url => {
+                        console.log(url)
+                        resolve(url)
+                        put(handleSetImage({url, id}))
+                        
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                        reject(err)
+                })
+            }
+        );
+    });
+}
 
 export const handleFetchProducts = ( { filterType, startAfterDoc, presistProducts=[] }) => {
     return new Promise((resolve, reject) => {

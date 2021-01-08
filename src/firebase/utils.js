@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
 import { firebaseConfig } from './config';
 
 //initlize firebase here :)
@@ -9,6 +10,8 @@ firebase.initializeApp(firebaseConfig);
 //create functions that can call these functions so we only have to initlize firebase here
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+export const firestorage = firebase.storage();
+
 
 
 //signInWithGoogle needs a provider, which is the next line, you can recreate the next to line with different

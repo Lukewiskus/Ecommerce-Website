@@ -1,7 +1,12 @@
 h2 {
   padding-top: 2rem;
 }
-
+.image {
+  max-width: 35rem;
+  max-height: 30rem;
+  object-fit: contain;
+  padding-right: 5rem;
+}
 .goBackBtn {
   display: block;
   width: 100%;

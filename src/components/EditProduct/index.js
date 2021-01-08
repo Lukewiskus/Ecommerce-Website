@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductStart, editProductStart } from './../../redux/Products/products.actions';
+import { fetchProductsStart,uploadImageStart, fetchProductStart, editProductStart } from './../../redux/Products/products.actions';
 import Button from './../forms/Button';
 import CKEditor from 'ckeditor4-react';
 import FormInput from './../../components/forms/FormInput';
@@ -22,6 +22,7 @@ const EditProduct = ({}) => {
     const [editThumbnail, setEditThumbnail] = useState('');
     const [editPrice, setEditPrice] = useState('');
     const [editDescription, setEditDescription] = useState('');
+    const [image, setImage] = useState(null)
 
     const { 
         productName,
@@ -31,6 +32,7 @@ const EditProduct = ({}) => {
         productCategory
     } = product;
     
+
     useEffect(() => {
         
         dispatch(
@@ -38,7 +40,6 @@ const EditProduct = ({}) => {
         )
 
         setEditCategory(productCategory)
-        setEditName(productName)
         setEditThumbnail(productThumbnail)
         setEditPrice(productPrice)
         setEditDescription(productDescription)
@@ -47,17 +48,22 @@ const EditProduct = ({}) => {
     
     const handleSubmit = e => {
         e.preventDefault();
-
-
         dispatch(editProductStart({
             newProductCategory: editCategory,
-            newProductName: editName,
-            newThumbnail: editThumbnail,
             newProductPrice: editPrice,
             newProductDesc: editDescription,
-            documentID: editType
+            id: productName
         }))
-        history.goBack('/admin');
+
+        if(image) {
+        dispatch(uploadImageStart({
+            thisImage: image,
+            name: image.name,
+            id: productName
+        }))
+        }
+        setTimeout(() => { history.goBack('/admin')}, 500);
+        
     }
 
         
@@ -65,11 +71,12 @@ const EditProduct = ({}) => {
         <div className="editProductForm">
             <form onSubmit={handleSubmit}>
                 <h2>
-                    Edit Product
+                    Edit {productName}
                 </h2>
                 <Button className="goBackBtn"onClick={() => history.goBack('/admin')}>
-                    GoBack
+                    Go Back
                 </Button>
+                
                 <FormSelect 
                     label="Category"
                     required
@@ -94,18 +101,9 @@ const EditProduct = ({}) => {
                     }]}
                     handleChange={e => setEditCategory(e.target.value)}
                 />
-                <FormInput
-                    label="Name"
-                    type="text"
-                    value={editName}
-                    handleChange={e => setEditName(e.target.value)}
-                />
-                <FormInput
-                    label="Main image URL"
-                    type="url"
-                    value={editThumbnail}
-                    handleChange={e => setEditThumbnail(e.target.value)}
-                />
+                <img className="image"src={productThumbnail}/>
+                <input type="file" onChange={e => setImage(e.target.files[0])} />
+                
                 <FormInput
                         label="Price"
                         type="number"

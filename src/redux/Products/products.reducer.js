@@ -2,7 +2,8 @@ import productTypes from './products.types';
 
 const INITIAL_STATE = {
     products: [],
-    product: {}
+    product: {},
+    image: {}
 };
 
 const productsReducer = (state=INITIAL_STATE, action) => {
@@ -21,6 +22,11 @@ const productsReducer = (state=INITIAL_STATE, action) => {
             return{
                 ...state,
                 product: action.payload
+            }
+        case productTypes.UPLOAD_IMAGE_START:
+            return {
+                ...state,
+                image: action.payload
             }
         default:
             return state;
