@@ -22,24 +22,6 @@ export const navBarDataSignedOut = [
         className: 'navText'
     },
     {
-        title: 'Gallery',
-        path: '/gallery',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'Contact Me',
-        path: '/contactme',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'About Me',
-        path: '/aboutme',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
         title: 'Login',
         path: '/login',
         icon: <AiIcons.AiFillHome />,
@@ -58,24 +40,6 @@ export const navBarDataSignedIn = [
     {
         title: 'Products',
         path: '/products',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'Gallery',
-        path: '/gallery',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'Contact Me',
-        path: '/contactme',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'About Me',
-        path: '/aboutme',
         icon: <AiIcons.AiFillHome />,
         className: 'navText'
     },
@@ -103,30 +67,6 @@ export const navBarDataAuth = [
     {
         title: 'Products',
         path: '/products',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'Gallery',
-        path: '/gallery',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'Contact Me',
-        path: '/contactme',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'About Me',
-        path: '/aboutme',
-        icon: <AiIcons.AiFillHome />,
-        className: 'navText'
-    },
-    {
-        title: 'My Account',
-        path: '/dashboard',
         icon: <AiIcons.AiFillHome />,
         className: 'navText'
     },

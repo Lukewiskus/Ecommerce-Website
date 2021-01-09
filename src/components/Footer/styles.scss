@@ -1,21 +1,30 @@
 .footer {
-  height: 30px;
-  width: 30px;
-  .wrap {
-    .item {
-      cursor: pointer;
-      width: 13rem;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      -webkit-transfrom: translateY(-50%);
-      -moz-transform: translateY(-50%);
-      transform: translateY(-50%);
-      // display: block;
-      // width: 100%;
-      // outline: 5px black;
-      // font-size:0.5rem;
+  font-size: 1.6rem;
+  max-height: 8rem;
+  table {
+    margin: 0 auto;
+  }
+  table tbody tr {
+    vertical-align: bottom;
+    .interested {
+      padding-left: 3rem;
+      padding-right: 0.4rem;
+      vertical-align: bottom;
+      font-size: 1.6rem;
+      text-transform: none;
+      text-decoration: none;
+      color: black;
+    }
+    .contactMeFooter {
+      max-height: 8rem;
+      a {
+        color: black;
+        transition: 50ms;
+      }
+      a:hover {
+        color: purple;
+        transition: 50ms;
+      }
     }
   }
 }

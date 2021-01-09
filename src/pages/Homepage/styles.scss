@@ -1,0 +1,46 @@
+.homepageWrapper {
+  width: 60%;
+  margin: 0 auto;
+  table tbody {
+    .row1 {
+      .imageOfBen {
+        width: 30rem;
+        height: 30rem;
+        .profileImage {
+          width: 40rem;
+          height: 60rem;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+  .galleryWord {
+    text-align: center;
+  }
+  .carouselWrapper {
+    .carousel {
+      width: 80%;
+      height: auto;
+      margin: 0 auto;
+      padding-bottom: 30rem;
+      .carouselImage {
+        width: 67rem;
+        height: 67rem;
+        object-fit: contain;
+      }
+    }
+  }
+  .contactMe {
+    padding-bottom: 30rem;
+
+    ul li {
+      text-align: center;
+      padding-top: 2rem;
+      h1 {
+        text-align: center;
+        text-transform: none;
+      }
+      list-style-type: none;
+    }
+  }
+}

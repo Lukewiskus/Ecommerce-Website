@@ -1,16 +1,28 @@
 import React from 'react';
 import "./styles.scss"
+import { Link } from 'react-router-dom';
 const Footer = props => {
     return (
-        <footer className="footer">
-            <div className="wrap">
-                <div className="item">
-                    <h2> @LukeWiskus 2020</h2>
-                </div>
-            </div>
-
-        </footer>
-        );
+        <div className="footer">
+            <table className="table">
+                <tbody>
+                    <tr>
+                        <td className="copyRights">
+                            @ 2020 Ben Mercil
+                        </td>
+                        <td className="interested">
+                            Interested in something Custom?
+                        </td>
+                        <td className="contactMeFooter">
+                            <Link to="/contact">
+                                Contact me
+                            </Link>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  );
     }
 
 export default Footer;

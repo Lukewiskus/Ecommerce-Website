@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './styles.scss';
-import FormInput from './../forms/FormInput';
-import Button from './../forms/Button';
+import FormInput from  './../../../components/forms/FormInput';
+import Button from './../../../components/forms/Button';
 import { useHistory } from "react-router-dom";
 import { CountryDropdown } from 'react-country-region-selector';
-import { apiInstance } from './../../Utils';
-import { selectCartTotal,selectCartItemsCount } from './../../redux/Cart/cart.selectors';
+import { apiInstance } from './../../../Utils';
+import { selectCartTotal,selectCartItemsCount } from './../../../redux/Cart/cart.selectors';
 import { createStructuredSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart } from './../../redux/Cart/cart.actions';
+import { clearCart } from './../../../redux/Cart/cart.actions';
 
 
 // you need this initial state so it doesnt error out

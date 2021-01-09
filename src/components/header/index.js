@@ -40,7 +40,7 @@ const signOut = () => {
                         </Link>
                         </td>
                         <td>
-                        <Link className="aboutBen"to="/aboutme">
+                        <Link className="aboutBen"to="/">
                             About Ben
                         </Link>
                         </td>

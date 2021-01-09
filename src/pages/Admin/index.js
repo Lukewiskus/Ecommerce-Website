@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImageStart, addProductStart, fetchProductsStart, deleteProductStart, setProducts } from './../../redux/Products/products.actions.js'
 import AddProductModal from './../../components/Modal/AddProductModal';
-import EditProductModal from './../../components/Modal/EditProductModal';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
 import LoadMore from './../../components/Loadmore';
 import CKEditor from 'ckeditor4-react';
-import axios from 'axios';
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({

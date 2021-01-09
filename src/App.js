@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { setCurrentUser, checkUserSession } from './redux/User/user.actions';
 import { useDispatch } from 'react-redux';
-
+import { Elements } from '@stripe/react-stripe-js';
 
 //high order component
 //WithAuth can restrict access to pages based on being logged in or not
@@ -18,18 +18,15 @@ import AdminLayout from './layouts/AdminLayout';
 
 //pages
 import './default.scss';
+import Contact from './pages/Contact'
 import EditProductPage from './pages/EditProductPage';
 import Payment from "./pages/Payment";
 import Cart from "./pages/Cart";
-import Search from "./pages/Search";
+import Product from "./pages/Products";
 import Homepage from "./pages/Homepage";
-import AboutMe from './pages/AboutMe';
-import ContactMe from './pages/ContactMe';
-import Gallery from './pages/Gallery';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import ProductDetails from './pages/ProductDetails';
 // import Products from './pages/Products';
@@ -66,6 +63,13 @@ const App = props =>  {
               </AdminLayout>
             </WithAdminAuth>
           )}/>
+          <Route path="/payment" render = {() => (
+          <WithAuth>
+            <MainLayout>
+              <Payment />
+          </MainLayout>
+          </WithAuth>
+        )}/>
         <Route path="/admin"
           render = {() => (
             //withAuth makes it so you get redirected to login if you are not logged in trying to access it
@@ -75,15 +79,20 @@ const App = props =>  {
               </AdminLayout>
             </WithAdminAuth>
           )}/>
+          <Route path="/contact" render={() => (
+          <MainLayout>
+            <Contact />
+          </MainLayout>
+        )} />
         
         <Route path="/products/:filterType" render={() => (
           <MainLayout>
-            <Search />
+            <Product />
           </MainLayout>
         )} />
         <Route exact path="/products" render={() => (
           <MainLayout>
-            <Search />
+            <Product />
           </MainLayout>
         )} />
         
@@ -98,28 +107,7 @@ const App = props =>  {
             <Cart />
           </MainLayout>
         )}/>
-        <Route path="/payment" render = {() => (
-          <WithAuth>
-            <MainLayout>
-            <Payment />
-          </MainLayout>
-          </WithAuth>
-        )}/>
-        <Route path="/aboutme" render = {() => (
-            <MainLayout>
-            <AboutMe />
-          </MainLayout>
-        )}/>
-        <Route path="/gallery" render = {() => (
-            <MainLayout>
-            <Gallery />
-          </MainLayout>
-        )}/>
-        <Route path="/contactme" render = {() => (
-            <MainLayout>
-            <ContactMe />
-          </MainLayout>
-        )}/>
+        
         <Route path="/register" 
           render =  {() => (
               <MainLayout>
@@ -138,15 +126,6 @@ const App = props =>  {
               <MainLayout>
               <Login/>
             </MainLayout>
-        )}/>
-        <Route path="/dashboard" 
-          render = {() => (
-            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
-            <WithAuth>
-              <MainLayout>
-                <Dashboard />
-              </MainLayout>
-            </WithAuth>
         )}/>
       </Switch>
     </div>
