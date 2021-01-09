@@ -43,19 +43,19 @@ const Products = ({ }) => {
             value: ''
           }, {
             name: 'Wallet',
-            value: 'wallet'
+            value: 'Wallet'
           }, {
           name: 'Tote Bags',
-          value: 'tote-bags'
+          value: 'Tote-Bags'
           }, {
           name: 'Guitar Straps',
-          value: 'guitar-straps'
+          value: 'Guitar-Straps'
           }, {
           name: 'Belts',
-          value: 'belts'
+          value: 'Belts'
       }, {
           name: 'Other',
-          value: 'other'
+          value: 'Other'
       }], handleChange: handleFilter
       };
 
