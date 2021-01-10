@@ -50,13 +50,13 @@ const Product = (product) => {
                         </span>
                         
                     </li>
-                    <li>
+                    {/* <li>
                         <div className="addToCart">
-                            <Button {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
+                            <Button {...configAddToCartBtn} onClick={() => handleAddToCart(product)} >
                                 Add To Cart
                             </Button>
                         </div>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div>

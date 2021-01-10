@@ -58,9 +58,9 @@ const App = props =>  {
           render = {() => (
             //withAuth makes it so you get redirected to login if you are not logged in trying to access it
             <WithAdminAuth>
-              <AdminLayout>
+              <MainLayout>
                   <Admin/>
-              </AdminLayout>
+              </MainLayout>
             </WithAdminAuth>
           )}/>
           <Route path="/payment" render = {() => (
@@ -74,9 +74,9 @@ const App = props =>  {
           render = {() => (
             //withAuth makes it so you get redirected to login if you are not logged in trying to access it
             <WithAdminAuth>
-              <AdminLayout>
+              <MainLayout>
                   <Admin/>
-              </AdminLayout>
+              </MainLayout>
             </WithAdminAuth>
           )}/>
           <Route path="/contact" render={() => (

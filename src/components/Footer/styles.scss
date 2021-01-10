@@ -28,3 +28,37 @@
     }
   }
 }
+
+@media (min-width: 300px) {
+  .footer {
+    font-size: 1.6rem;
+    max-height: 8rem;
+    width: 80rem;
+    table {
+      margin: 0 auto;
+    }
+    table tbody tr {
+      vertical-align: bottom;
+      .interested {
+        padding-left: 3rem;
+        padding-right: 0.4rem;
+        vertical-align: bottom;
+        font-size: 1.6rem;
+        text-transform: none;
+        text-decoration: none;
+        color: black;
+      }
+      .contactMeFooter {
+        max-height: 8rem;
+        a {
+          color: black;
+          transition: 50ms;
+        }
+        a:hover {
+          color: purple;
+          transition: 50ms;
+        }
+      }
+    }
+  }
+}

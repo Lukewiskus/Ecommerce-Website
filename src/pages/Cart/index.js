@@ -100,14 +100,14 @@ const Cart = ({}) => {
                     </tbody>
                 </table>
                 ) : (
-                    <div className="noItem">
+                <div className="noItem">
                     <p>
                         You have no items in your cart.
                     </p>
                     <Button id="noItemButton"onClick={() => history.goBack()}>
                         ContinueShopping
                     </Button>
-                    </div>
+                </div>
                 )}
             </div>
         </div>

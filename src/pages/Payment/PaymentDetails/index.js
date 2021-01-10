@@ -253,8 +253,8 @@ const PaymentDetails = () => {
                         Card Details
                     </h2>
                     <CardElement
+                    className="cardElement"
                         required
-                        
                         options={configCardElemet}
                     />
                 </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { uploadImageStart, addProductStart, fetchProductsStart, deleteProductStart, setProducts } from './../../redux/Products/products.actions.js'
 import AddProductModal from './../../components/Modal/AddProductModal';
 import { Link, useHistory, useParams } from 'react-router-dom';
+
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
@@ -10,15 +11,17 @@ import LoadMore from './../../components/Loadmore';
 import CKEditor from 'ckeditor4-react';
 import './styles.scss';
 
-const mapState = ({ productsData }) => ({
+const mapState = ({ productsData, user }) => ({
     products: productsData.products,
-    doucmentID: productsData
+    doucmentID: productsData,
+    currentUser: user.currentUser
 });
 
 const Admin = props => {
     const { products, documentID } = useSelector(mapState);
     const dispatch = useDispatch();
     const history = useHistory();
+    const { currentUser } = useSelector(mapState);
     const [hideProductModal, setHideProductModal] = useState(true);
     const [image, setImage] = useState(null)
     const { filterType } = useParams();
@@ -131,34 +134,19 @@ const Admin = props => {
     
 
     return(
-        <div className="admin">
-            <div className="callToActions">
-                <ul>
-                    <li>
-                        <h1>
-                            Manage Products
-                        </h1>
-                    </li>
-                    <li>
-                        <h2>
-                            Search Your Product Type
-                        </h2>
-                    <FormSelect {...configFilters} />
-                    </li>
-                    <li>
-                        <Button onClick={() => toggleProductModal()}>
-                            Add new product
-                        </Button>
-                    </li>
-                </ul>
-            </div>
-            <AddProductModal {...configProductModal}>
-                <div className="addNewProductForm">
-                    <form onSubmit={handleSubmit}>
-                        <h2>
-                            Add new product
-                        </h2>
-                        <FormSelect
+            <div className="mainWrap">
+                <div className="topWrap">
+                    <h1>
+                        Hello {currentUser.displayName}
+                    </h1>
+                </div>
+                <AddProductModal {...configProductModal}>
+                 <div className="addNewProductForm">
+                     <form onSubmit={handleSubmit}>
+                         <h2>
+                             Add new product
+                         </h2>
+                         <FormSelect
                             required
                             label="Category"
                             options = {[
@@ -217,66 +205,131 @@ const Admin = props => {
                     </form>
                 </div>
             </AddProductModal>
-
-            <div className="manageProducts">
-                <table border="0" cellPadding="0" cellSpacing="0">
-                    <tbody> 
-                        <tr>
-                            <td>
-                                <table className="results" border="0" cellPadding="10" cellSpacing="10">
-                                    <tbody>
-                                        {(Array.isArray(data) && data.length >0) && data.map((product, index) => {
-                                            const { 
-                                                productName,
-                                                productThumbnail,
-                                                productPrice,
-                                                productCategory,
-                                                documentID
-                                            } = product;
-                                            return (
-                                                <div className="singleRow">
-                                                <tr key={index}>
-                                                    <td>
-                                                        <img src={productThumbnail} alt="Thumbnail"/>
-                                                    </td>
-                                                    <td>
-                                                        {productName}
-                                                    </td>
-                                                    <td>
-                                                        ${productPrice}
-                                                    </td>
-                                                    <td>
-                                                        {productCategory}
-                                                    </td>
-                                                    <td>
-                                                        <Button onClick={() => dispatch(deleteProductStart(documentID))}>
-                                                            Delete
-                                                        </Button>
-                                                    </td>
-                                                    <td>
-                                                    <Link to={`/productedit/${documentID}`}>
-                                                        <Button >
-                                                            Edit
-                                                        </Button>
-                                                        </Link>
-                                                    </td>
-                                                </tr>
-                                                </div>
-        
-                                            )
-                                        })}
-                                    </tbody>
-                                    {!isLastPage && (
-                                        <LoadMore {...configLoadMore}/>
-                                    )}
+                <div className="lowWrap">
+                <Button className="btn addProduct"onClick={() => toggleProductModal()}>
+                    Add new product
+                </Button>
+                <h1>
+                Filter Your Products:
+                </h1>
+                <FormSelect {...configFilters} />
+                    <table border="0" cellPadding="0" cellSpacing="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                <table className="product" border="0" cellPadding="10" cellSpacing="10">
+                                <tbody>
+                                    {(Array.isArray(data) && data.length >0) && data.map((product, index) => {
+                                        const { 
+                                            productName,
+                                            productThumbnail,
+                                            productPrice,
+                                            productCategory,
+                                            documentID
+                                        } = product;
+                                        return (
+                                            <div className="singleRow">
+                                            <tr key={index}>
+                                                <td>
+                                                    <img src={productThumbnail} alt="Thumbnail"/>
+                                                </td>
+                                                <td>
+                                                    {productName}
+                                                </td>
+                                                <td>
+                                                    ${productPrice}
+                                                </td>
+                                                <td>
+                                                    {productCategory}
+                                                </td>
+                                                <td>
+                                                <Link to={`/productedit/${documentID}`}>
+                                                    <Button >
+                                                        Edit
+                                                    </Button>
+                                                    </Link>
+                                                </td>
+                                                <td>
+                                                    <Button onClick={() => dispatch(deleteProductStart(documentID))}>
+                                                        Delete
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                            </div>
+    
+                                        )
+                                    })}
+                                </tbody>
+                                {!isLastPage && (<LoadMore {...configLoadMore}/>)}
                                 </table>
                             </td>
-                        </tr>
-                    </tbody>
-                
-                </table>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+
+        //     <div className="manageProducts">
+        //         <table border="0" cellPadding="0" cellSpacing="0">
+        //             <tbody> 
+        //                 <tr>
+        //                     <td>
+        //                         <table className="results" border="0" cellPadding="10" cellSpacing="10">
+        //                             <tbody>
+        //                                 {(Array.isArray(data) && data.length >0) && data.map((product, index) => {
+        //                                     const { 
+        //                                         productName,
+        //                                         productThumbnail,
+        //                                         productPrice,
+        //                                         productCategory,
+        //                                         documentID
+        //                                     } = product;
+        //                                     return (
+        //                                         <div className="singleRow">
+        //                                         <tr key={index}>
+        //                                             <td>
+        //                                                 <img src={productThumbnail} alt="Thumbnail"/>
+        //                                             </td>
+        //                                             <td>
+        //                                                 {productName}
+        //                                             </td>
+        //                                             <td>
+        //                                                 ${productPrice}
+        //                                             </td>
+        //                                             <td>
+        //                                                 {productCategory}
+        //                                             </td>
+        //                                             <td>
+        //                                                 <Button onClick={() => dispatch(deleteProductStart(documentID))}>
+        //                                                     Delete
+        //                                                 </Button>
+        //                                             </td>
+        //                                             <td>
+        //                                             <Link to={`/productedit/${documentID}`}>
+        //                                                 <Button >
+        //                                                     Edit
+        //                                                 </Button>
+        //                                                 </Link>
+        //                                             </td>
+        //                                         </tr>
+        //                                         </div>
+        
+        //                                     )
+        //                                 })}
+        //                             </tbody>
+        //                             {!isLastPage && (
+        //                                 <LoadMore {...configLoadMore}/>
+        //                             )}
+        //                         </table>
+        //                     </td>
+        //                 </tr>
+        //             </tbody>
+                
+        //         </table>
+        //     </div>
+        // </div>
+        // </div>
     );
 }
 

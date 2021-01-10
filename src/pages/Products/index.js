@@ -1,7 +1,9 @@
 import React, { useEffect }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { fetchProductsStart } from "../../redux/Products/products.actions";
+import { addProduct } from './../../redux/Cart/cart.actions';
+import Button from './../../components/forms/Button';
 import LoadMore from './../../components/Loadmore';
 import Product from './Product';
 import FormSelect from './../../components/forms/FormSelect';
@@ -32,7 +34,11 @@ const Products = ({ }) => {
         history.push(`/products/${nextFilter}`);
     };
 
-
+    const handleAddToCart = (product) => {
+        if(!product) return;
+        dispatch(addProduct(product))
+        history.push('/cart')
+    };
 
     if(!Array.isArray(data)) return null;
 
@@ -87,32 +93,55 @@ const Products = ({ }) => {
         );
     }
     return(
-        <div className="products">
-            <h1>
-                Browse Products
-            </h1>
-
-            <FormSelect {...configFilters} />
-
-            <div className="productResults">
+        <div>
+            <div className="productWrapper">
             {data.map((products, index) => {
-                const { productThumbnail, productName, productPrice } = products;
+                const { documentID, productThumbnail, productName, productPrice } = products;
                 //this check makes sure we have all three important components
                 if(!productThumbnail || !productName || typeof productPrice === 'undefined') return null;
-                
-                const configProduct = {
-                    ...products
-                };
 
                 return(
-                    <Product {...configProduct} />
+                    <div className="cell">
+                        <Link to={`/product/${documentID}`}>
+                <img src={productThumbnail} alt={productName} />
+                </Link>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr className="productName">
+                                        <td>
+                                        <Link to={`/product/${documentID}`}>
+                                        <h1>
+                                        {productName}
+                                        </h1>
+                                        </Link>
+                                        </td>
+                                        <td className="price">
+                                            <h1>
+                                            ${productPrice}
+                                            </h1>
+                                        </td>
+                                    </tr>
+                                
+                                </tbody>
+                            </table>
+                            <Button onClick={() => handleAddToCart(products)}>
+                                Add To Cart
+                            </Button>
+                        </div>
+                    </div>
                 );
-            })}
-            </div>
-            {!isLastPage && (
-                <LoadMore {...configLoadMore}/>
-            )}
+            })}         
+
         </div>
+        <div id="loadBtn">
+        {!isLastPage && (
+                <LoadMore {...configLoadMore}/>
+            )} 
+            </div>
+        </div>
+
+
     );
 };
 

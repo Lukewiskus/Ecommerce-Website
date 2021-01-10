@@ -1,15 +1,60 @@
 .homepageWrapper {
+  p {
+    width: 100%;
+    font-size: 3rem;
+    font-weight: 500;
+  }
   width: 60%;
   margin: 0 auto;
-  table tbody {
-    .row1 {
-      .imageOfBen {
-        width: 30rem;
-        height: 30rem;
-        .profileImage {
-          width: 40rem;
-          height: 60rem;
-          object-fit: contain;
+  table {
+    width: 100%;
+    tbody {
+      .row1 {
+        .imageOfBen {
+          width: 100%;
+          height: 30rem;
+          .profileImage {
+            margin: 0 auto;
+            display: block;
+            width: 40rem;
+            height: 60rem;
+            object-fit: contain;
+          }
+        }
+      }
+      .row2 {
+        .carouselWrapper {
+          width: 100%;
+          .carousel {
+            height: auto;
+            margin: 0 auto;
+            padding-bottom: 30rem;
+            .carouselImage {
+              width: 67rem;
+              height: 67rem;
+              object-fit: contain;
+            }
+          }
+        }
+      }
+      .row3 {
+        .contactMe {
+          width: 0rem;
+          padding-bottom: 30rem;
+          margin: 0 auto;
+          ul {
+            margin: 0 auto;
+            margin-right: 10rem;
+            li {
+              text-align: center;
+              padding-top: 2rem;
+              h1 {
+                text-align: center;
+                text-transform: none;
+              }
+              list-style-type: none;
+            }
+          }
         }
       }
     }
@@ -17,30 +62,66 @@
   .galleryWord {
     text-align: center;
   }
-  .carouselWrapper {
-    .carousel {
-      width: 80%;
-      height: auto;
-      margin: 0 auto;
-      padding-bottom: 30rem;
-      .carouselImage {
-        width: 67rem;
-        height: 67rem;
-        object-fit: contain;
-      }
-    }
-  }
-  .contactMe {
-    padding-bottom: 30rem;
+}
 
-    ul li {
-      text-align: center;
-      padding-top: 2rem;
-      h1 {
-        text-align: center;
-        text-transform: none;
+@media (min-width: 300px) {
+  p {
+    width: 30rem;
+    margin: 0 auto;
+  }
+  .homepageWrapper {
+    margin: 0 auto;
+    width: 60%;
+    table tbody {
+      .row1 {
+        .imageOfBen {
+          width: 100%;
+          height: 30rem;
+          .profileImage {
+            margin: 0 auto;
+            display: block;
+            width: 40rem;
+            height: 60rem;
+            object-fit: contain;
+          }
+        }
       }
-      list-style-type: none;
+      .row2 {
+        .carouselWrapper {
+          width: 100%;
+          .carousel {
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            padding-bottom: 10rem;
+            .carouselImage {
+              width: 50rem;
+              height: 50rem;
+              object-fit: contain;
+            }
+          }
+        }
+      }
+      .row3 {
+        .contactMe {
+          width: 60rem;
+          padding-bottom: 10rem;
+          display: block;
+
+          ul {
+            margin-right: 15rem;
+            li {
+              text-align: center;
+              padding-top: 2rem;
+              h1 {
+                text-align: center;
+                text-transform: none;
+              }
+              list-style-type: none;
+            }
+          }
+        }
+      }
     }
   }
 }

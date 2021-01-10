@@ -28,44 +28,44 @@ const home = props => {
                     <tr className="row1">
                         <td className="imageOfBen">
                             <img className="profileImage"src={Ben} />
-                        </td>
-                        <td className="aboutme">
                             <p>
                             Here is an example of what can be done for Your description. Put anything you want here to describe yourself. Use any picture as well, this one was just your insta profile that I screen shotted lol. So yeah just some writing in order to see how this looks and hopefully iut looks nice. I need a better eye for this kind of thing lol
                             </p>
                         </td>
                     </tr>
+                    <tr className="row2">
+                    <div className="carouselWrapper">
+                    <Carousel className="carousel">
+                        {state.items.map(item => 
+                        <div key={item.id}>
+                            <img className="carouselImage"src={item.title} />
+                        </div>)}
+                    </Carousel>
+                    </div>
+                    </tr>
+                    <tr className="row3">
+                    <div className="contactMe">
+                        <ul>
+                            <li>
+                                <h1>
+                                    Interested In Something Custom? Contact Me At
+                                </h1>
+                            </li>
+                            <li>
+                                555-555-5555
+                            </li>
+                            <li>
+                                exampleEmail@email.com
+                            </li>
+                            <li>
+                                Instagram, Facebook, ect..
+                            </li>
+                        </ul>
+                    </div>
+                    </tr>
                 </tbody>
             </table>
-            <h1 className="galleryWord">
-                Gallery
-            </h1>
-            <div className="carouselWrapper">
-                <Carousel className="carousel">
-                    {state.items.map(item => 
-                    <div key={item.id}>
-                        <img className="carouselImage"src={item.title} />
-                    </div>)}
-                </Carousel>
-            </div>
-            <div className="contactMe">
-                <ul>
-                    <li>
-                        <h1>
-                            Interested In Something Custom? Contact Me At
-                        </h1>
-                    </li>
-                    <li>
-                        555-555-5555
-                    </li>
-                    <li>
-                        exampleEmail@email.com
-                    </li>
-                    <li>
-                        Instagram, Facebook, ect..
-                    </li>
-                </ul>
-            </div>
+            
         </div>
 
     )

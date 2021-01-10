@@ -18,7 +18,7 @@ export const navBarDataSignedOut = [
     {
         title: 'Products',
         path: '/products',
-        icon: <AiIcons.AiFillHome />,
+        icon: <AiIcons.AiFillShopping />,
         className: 'navText'
     },
     {
@@ -40,13 +40,13 @@ export const navBarDataSignedIn = [
     {
         title: 'Products',
         path: '/products',
-        icon: <AiIcons.AiFillHome />,
+        icon: <AiIcons.AiFillShopping />,
         className: 'navText'
     },
     {
         title: 'My Account',
         path: '/dashboard',
-        icon: <AiIcons.AiFillHome />,
+        icon: <FaIcons.FaUserAlt />,
         className: 'navText'
     },
 ]
@@ -59,15 +59,22 @@ export const navBarDataAuth = [
         className: 'navText'
     },
     {
-        title: 'Manage Store',
-        path: '/admin',
-        icon: <AiIcons.AiFillHome />,
+        title: 'Products',
+        path: '/products',
+        icon: <AiIcons.AiFillShopping />,
         className: 'navText'
     },
     {
-        title: 'Products',
-        path: '/products',
-        icon: <AiIcons.AiFillHome />,
+        title: 'Manage Store',
+        path: '/admin',
+        icon: <FaIcons.FaUserEdit />,
         className: 'navText'
     },
+    
+    {
+        title: 'My Account',
+        path: '/dashboard',
+        icon: <FaIcons.FaUserAlt />,
+        className: 'navText'
+    }
 ]

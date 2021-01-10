@@ -47,51 +47,42 @@ const ProductDetails = ({}) => {
     }, []);
 
     return(
-        <div className="productCard">
-            <div className="hero">
-                <img src={productThumbnail} alt="thumbnail"/>
-            </div>
-            <div className="productDetails">
-                <ul>
-                    <li>
-                        <h1>
-                            {productName}
-                        </h1>
-                    </li>
-                    <li>
-                        <span>
-                            ${productPrice}
-                        </span>      
-                    </li>
-                    <li>
-                    
-                    </li>
-                    <li>
-                        <table className="bottomText" border="0" cellSpacing="0" cellPadding="0">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <Button id="button" {...configAddToCardBtn} onClick={() => handleAddToCart(product)}>
-                                            Add To Cart
-                                        </Button>
-                                    </td>
-                                    <td>
-                                        Or
-                                    </td>
-                                    <td>
-                                    <h3 className="backArrow" onClick={() => history.goBack()}>
-                                        Return
-                                    </h3>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </li>
-                    <li>
+        <div className="productDetailWrap">
+            <table>
+                <tbody>
+                    <tr className="imagetr">
+                        <td className="image">
+                            <img src={productThumbnail} alt="thumbnail"/>
+                        </td>
+                    </tr>
+                    <tr className="textRow">
+                        <td className="text">
+                            <span>
+                                {productName}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr className="desc">
+                        <td>
                         <span dangerouslySetInnerHTML={{__html: productDescription}} />
-                    </li>
-                </ul>
-            </div>
+                        </td>
+                    </tr>
+                    <tr className="bottomRow">
+                        <td>
+                            <h1>
+                        ${productPrice}
+                        </h1>
+                        <Button {...configAddToCardBtn} onClick={() => handleAddToCart(product)}>
+                            Add To Cart
+                        </Button>
+                        <Button id="goBackBTN" onClick={() => history.goBack()}>
+                                Go Back
+                        </Button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
         </div>
     );
 }

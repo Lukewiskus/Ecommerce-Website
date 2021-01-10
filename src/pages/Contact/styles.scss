@@ -8,3 +8,17 @@
     list-style-type: none;
   }
 }
+
+@media (min-width: 300px) {
+  .contactMe {
+    width: 60rem;
+    padding-bottom: 30rem;
+    padding-left: 12rem;
+    ul li {
+      text-align: center;
+      padding-top: 2rem;
+      text-transform: none;
+      list-style-type: none;
+    }
+  }
+}

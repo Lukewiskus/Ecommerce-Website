@@ -1,47 +1,109 @@
-.productCard {
-  max-width: 80rem;
-  margin: 0 auto 10rem;
-  .backArrow {
-    cursor: pointer;
-    font-weight: bolder;
-  }
-  .hero {
-    display: block;
+.productDetailWrap {
+  padding: 0;
+  margin: 0 auto;
+  table {
+    margin: 0 auto;
     width: 100%;
-    margin: 2rem auto;
 
-    img {
-      display: block;
-      width: 100%;
-      margin: 0;
-    }
-  }
-  .productDetails {
-    ul,
-    ul li {
-      padding: 0;
-      margin: 0;
-    }
-
-    ul li {
-      list-style-type: none;
-      margin: 0 auto 1rem;
-
-      table tbody,
-      tr,
-      td {
-        padding: 0 10px;
-        #button {
-          width: 30rem;
+    tbody {
+      tr.imagetr {
+        td.image {
+          padding: 0;
+          text-align: center;
+          img {
+            width: 65rem;
+            height: 60rem;
+            border: 15px solid black;
+            object-fit: cover;
+          }
         }
       }
+      tr.textRow {
+        td.text {
+          padding-top: 2rem;
+          font-size: 4rem;
+        }
 
-      h1 {
-        margin: 0;
+        text-align: center;
+      }
+      tr.desc {
+        td {
+          span {
+            p {
+              width: 60%;
+            }
+            text-align: center;
+          }
+        }
+      }
+      tr.bottomRow {
+        h1 {
+          padding-top: 2rem;
+          text-align: center;
+        }
+        .btn {
+          width: 50rem;
+          margin-bottom: 2rem;
+        }
+        width: 20%;
       }
     }
   }
-  .addToCart {
-    max-width: 20rem;
+}
+
+@media (min-width: 300px) {
+  .productDetailWrap {
+    table {
+      padding: 0;
+      margin: 0;
+      padding-left: 10rem;
+      tbody {
+        tr.imagetr {
+          td.image {
+            padding: 0;
+            text-align: center;
+            img {
+              width: 55rem;
+              height: 50rem;
+              border: 15px solid black;
+              object-fit: cover;
+            }
+          }
+        }
+        tr.textRow {
+          margin: 0 auto;
+          td.text {
+            padding-top: 2rem;
+            font-size: 4rem;
+          }
+
+          text-align: center;
+        }
+        tr.desc {
+          td {
+            padding-left: 3rem;
+            span {
+              p {
+                padding: 1rem;
+                text-align: left;
+                width: 100%;
+              }
+              text-align: center;
+            }
+          }
+        }
+        tr.bottomRow {
+          h1 {
+            padding-top: 2rem;
+            text-align: center;
+          }
+          .btn {
+            width: 50rem;
+            margin-bottom: 2rem;
+          }
+          width: 20%;
+        }
+      }
+    }
   }
 }
