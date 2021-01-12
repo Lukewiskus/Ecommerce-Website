@@ -75,7 +75,7 @@ const ProductDetails = ({}) => {
                         <Button {...configAddToCardBtn} onClick={() => handleAddToCart(product)}>
                             Add To Cart
                         </Button>
-                        <Button id="goBackBTN" onClick={() => history.goBack()}>
+                        <Button id="goBackBTN" onClick={() => history.push('/products')}>
                                 Go Back
                         </Button>
                         </td>

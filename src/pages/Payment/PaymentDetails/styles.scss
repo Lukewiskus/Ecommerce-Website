@@ -17,7 +17,7 @@
   }
 }
 
-@media (min-width: 300px) {
+@media only screen and (max-device-width: 480px) {
   .paymentDetails {
     display: block;
     width: 60rem;

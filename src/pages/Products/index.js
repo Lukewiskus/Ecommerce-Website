@@ -94,7 +94,11 @@ const Products = ({ }) => {
     }
     return(
         <div>
+            <div className="search">
+            <FormSelect {...configFilters} />
+            </div>
             <div className="productWrapper">
+                
             {data.map((products, index) => {
                 const { documentID, productThumbnail, productName, productPrice } = products;
                 //this check makes sure we have all three important components

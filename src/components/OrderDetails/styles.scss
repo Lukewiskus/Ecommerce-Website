@@ -1,0 +1,11 @@
+img {
+  width: 25rem;
+}
+@media only screen and (max-device-width: 480px) {
+  .main {
+    width: 80rem;
+  }
+  img {
+    width: 25rem;
+  }
+}

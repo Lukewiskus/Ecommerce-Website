@@ -206,9 +206,30 @@ const Admin = props => {
                 </div>
             </AddProductModal>
                 <div className="lowWrap">
-                <Button className="btn addProduct"onClick={() => toggleProductModal()}>
-                    Add new product
-                </Button>
+                <table className="topButtons">
+                    <tbody>
+                        <tr>
+                            <td>
+                            <Button className="btn addProduct"onClick={() => toggleProductModal()}>
+                                 Add new product
+                            </Button>
+                            </td>
+                            <td>
+                            <Link to={'all-orders'}>
+                            <Button className="btn addProduct">
+
+                                View All Orders
+                            </Button>
+                            </Link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                
+                
+                
+
                 <h1>
                 Filter Your Products:
                 </h1>
@@ -217,7 +238,7 @@ const Admin = props => {
                         <tbody>
                             <tr>
                                 <td>
-                                <table className="product" border="0" cellPadding="10" cellSpacing="10">
+                                <table className="product" border="0" cellPadding="10" cellSpacing="10" margin={0}>
                                 <tbody>
                                     {(Array.isArray(data) && data.length >0) && data.map((product, index) => {
                                         const { 

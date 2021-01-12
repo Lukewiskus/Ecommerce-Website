@@ -28,7 +28,7 @@
           .carousel {
             height: auto;
             margin: 0 auto;
-            padding-bottom: 30rem;
+            padding-bottom: 10rem;
             .carouselImage {
               width: 67rem;
               height: 67rem;
@@ -39,12 +39,13 @@
       }
       .row3 {
         .contactMe {
-          width: 0rem;
+          display: block;
+          width: 60rem;
           padding-bottom: 30rem;
           margin: 0 auto;
           ul {
             margin: 0 auto;
-            margin-right: 10rem;
+            margin-right: 15rem;
             li {
               text-align: center;
               padding-top: 2rem;
@@ -64,7 +65,7 @@
   }
 }
 
-@media (min-width: 300px) {
+@media only screen and (max-device-width: 480px) {
   p {
     width: 30rem;
     margin: 0 auto;

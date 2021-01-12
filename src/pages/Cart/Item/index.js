@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import * as HiIcons from 'react-icons/hi';
+import * as TiIcons from 'react-icons/ti';
 import { handleRemoveCartItem } from '../../../redux/Cart/cart.utils';
+import { IconContext } from 'react-icons';
 import { removeCartItem, addProduct,reduceCartItem } from './../../../redux/Cart/cart.actions';
 
 const Item = (product) => {
@@ -47,13 +50,13 @@ const Item = (product) => {
                     </td>
                     <td>
                         <span className="arrow"  onClick={() => handleRemoveProduct(product)}>
-                            {`<  `}
+                            <HiIcons.HiOutlineChevronLeft/>
                         </span>
-                        <span>
+                        <span className="quantity">
                             {quantity}
                         </span>
                         <span  className="arrow" onClick={() => handleAddProduct(product)}>
-                            {`  >`}
+                        <HiIcons.HiOutlineChevronRight/>
                         </span>
                     </td>
                     <td>
@@ -61,7 +64,7 @@ const Item = (product) => {
                     </td>
                     <td align="center">
                         <span className="cartBtn" onClick={() => handleRemoveItem(documentID)}>
-                            X
+                            <TiIcons.TiDeleteOutline />
                         </span>
                     </td>
                 </tr>

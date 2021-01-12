@@ -44,7 +44,7 @@ export const navBarDataSignedIn = [
         className: 'navText'
     },
     {
-        title: 'My Account',
+        title: 'Order History',
         path: '/dashboard',
         icon: <FaIcons.FaUserAlt />,
         className: 'navText'
@@ -71,10 +71,5 @@ export const navBarDataAuth = [
         className: 'navText'
     },
     
-    {
-        title: 'My Account',
-        path: '/dashboard',
-        icon: <FaIcons.FaUserAlt />,
-        className: 'navText'
-    }
+
 ]

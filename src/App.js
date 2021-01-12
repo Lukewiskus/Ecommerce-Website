@@ -18,6 +18,9 @@ import AdminLayout from './layouts/AdminLayout';
 
 //pages
 import './default.scss';
+import AllOrders from './pages/AllOrders'
+import Order from './pages/Order'
+import Dashboard from './pages/Dashboard'
 import Contact from './pages/Contact'
 import EditProductPage from './pages/EditProductPage';
 import Payment from "./pages/Payment";
@@ -63,10 +66,26 @@ const App = props =>  {
               </MainLayout>
             </WithAdminAuth>
           )}/>
+          <Route path="/all-orders"
+          render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
+            <WithAdminAuth>
+              <MainLayout>
+                  <AllOrders/>
+              </MainLayout>
+            </WithAdminAuth>
+          )}/>
           <Route path="/payment" render = {() => (
           <WithAuth>
             <MainLayout>
               <Payment />
+          </MainLayout>
+          </WithAuth>
+        )}/>
+                  <Route path="/dashboard" render = {() => (
+          <WithAuth>
+            <MainLayout>
+              <Dashboard />
           </MainLayout>
           </WithAuth>
         )}/>
@@ -78,6 +97,15 @@ const App = props =>  {
                   <Admin/>
               </MainLayout>
             </WithAdminAuth>
+          )}/>
+          <Route path="/order/:orderID"
+          render = {() => (
+            //withAuth makes it so you get redirected to login if you are not logged in trying to access it
+            <WithAuth>
+              <MainLayout>
+                  <Order/>
+              </MainLayout>
+            </WithAuth>
           )}/>
           <Route path="/contact" render={() => (
           <MainLayout>
@@ -127,6 +155,7 @@ const App = props =>  {
               <Login/>
             </MainLayout>
         )}/>
+        
       </Switch>
     </div>
   );

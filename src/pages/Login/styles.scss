@@ -9,6 +9,7 @@
   }
   button.btn {
     margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   a {
     display: block;
@@ -41,5 +42,12 @@
   }
   .socialSignIn {
     margin: 0.5rem auto;
+  }
+}
+@media only screen and (max-device-width: 480px) {
+  .wrap {
+    display: block;
+    width: 40rem;
+    margin-left: 0rem;
   }
 }

@@ -1,12 +1,30 @@
 .mainWrap {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
   .topWrap {
     h1 {
       text-align: center;
     }
   }
   .lowWrap {
+    table.topButtons {
+      tbody {
+        tr {
+          td {
+            .btn.addProduct {
+              width: 40rem;
+              margin-bottom: 2rem;
+            }
+          }
+        }
+      }
+    }
     .btn {
-      width: 30rem;
+      width: 20rem;
+    }
+    .singleRow {
+      border-bottom: 1px solid black;
     }
     table tbody tr {
       td {
@@ -20,6 +38,45 @@
     }
   }
 }
+
+@media only screen and (max-device-width: 480px) {
+  .mainWrap {
+    display: block;
+    margin: 0 auto;
+    max-width: 480px;
+    margin-right: 40rem;
+    .topWrap {
+      h1 {
+        text-align: center;
+        margin-left: 10rem;
+      }
+    }
+    .lowWrap {
+      .btn.addProduct {
+        width: 15rem !important;
+        margin-bottom: 2rem;
+        margin-left: 10rem;
+      }
+    }
+    .btn {
+      width: 10rem !important;
+    }
+    .singleRow {
+      border-bottom: 1px solid black;
+    }
+    table tbody tr {
+      td {
+        vertical-align: middle;
+        border-bottom: 1px black;
+        img {
+          max-width: 20rem;
+          max-height: 20rem;
+        }
+      }
+    }
+  }
+}
+
 // .main {
 //   margin: 0 auto;
 // }
