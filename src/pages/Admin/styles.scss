@@ -2,6 +2,12 @@
   display: block;
   margin: 0 auto;
   width: 80%;
+  .addNewProductForm {
+    margin-bottom: 20rem;
+    .btn {
+      margin-bottom: 20rem;
+    }
+  }
   .topWrap {
     h1 {
       text-align: center;

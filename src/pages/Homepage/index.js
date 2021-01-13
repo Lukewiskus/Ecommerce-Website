@@ -29,7 +29,11 @@ const home = props => {
                         <td className="imageOfBen">
                             <img className="profileImage"src={Ben} />
                             <p>
-                            Here is an example of what can be done for Your description. Put anything you want here to describe yourself. Use any picture as well, this one was just your insta profile that I screen shotted lol. So yeah just some writing in order to see how this looks and hopefully iut looks nice. I need a better eye for this kind of thing lol
+                            These are placeholder words for the homepage description. These are placeholder words for the homepage description.
+                            These are placeholder words for the homepage description. These are placeholder words for the homepage description.
+                            These are placeholder words for the homepage description. These are placeholder words for the homepage description.
+                            These are placeholder words for the homepage description. These are placeholder words for the homepage description.
+                            These are placeholder words for the homepage description. These are placeholder words for the homepage description.
                             </p>
                         </td>
                     </tr>
